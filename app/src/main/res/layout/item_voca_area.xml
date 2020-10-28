@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--              xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"-->
+<!--              android:layout_height="wrap_content" xmlns:tools="http://schemas.android.com/tools"-->
+<!--              android:orientation="vertical"-->
+<!--              android:layout_marginTop="24dp">-->
+<!--        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
+<!--                <TextView-->
+<!--                        tools:text="@string/vocagrouparea"-->
+<!--                        android:textSize="20sp"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:id="@+id/TextView_vocaAdd_vocaArea"-->
+<!--                        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"/>-->
+
+<!--                <Switch-->
+<!--                        android:text="@string/arealocationSetting"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content" android:id="@+id/Switch_vocaAdd_areaSwitch"-->
+<!--                        android:thumb="@drawable/switch_thumb_selector"-->
+<!--                        android:track="@drawable/switch_track"-->
+<!--                        android:switchPadding="5dp"-->
+<!--                        android:showText="true"-->
+<!--                        android:enabled="false"-->
+<!--                        android:textOff="@string/frontside"-->
+<!--                        android:textOn="@string/backside"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                android:layout_marginRight="16dp"/>-->
+<!--        </LinearLayout>-->
+
+
+<!--        <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:inputType="textNoSuggestions"-->
+<!--                android:imeOptions="actionDone"-->
+<!--                android:ems="10"-->
+<!--                android:cursorVisible="false"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:id="@+id/EditText_vocaAdd_vocaAreaInput"-->
+<!--        android:layout_marginTop="8dp"/>-->
+
+<!--</LinearLayout>-->
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_marginTop="12dp">
+        <TextView
+                tools:text="@string/vocagrouparea"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/TextView_vocaAdd_vocaArea"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/TextView_vocaAdd_vocagroup"
+                android:layout_marginTop="12dp"/>
+        <Switch
+                android:text="@string/arealocationSetting"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/Switch_vocaAdd_areaSwitch"
+                android:thumb="@drawable/switch_thumb_selector"
+                android:track="@drawable/switch_track"
+                android:switchPadding="5dp"
+                android:showText="true"
+                android:enabled="false"
+                android:textOff="@string/frontside"
+                android:textOn="@string/backside"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/EditText_vocaAdd_vocaAreaInput"/>
+        <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="textNoSuggestions"
+                android:text=""
+                android:ems="10"
+                android:imeOptions="actionDone"
+                android:cursorVisible="false"
+                android:id="@+id/EditText_vocaAdd_vocaAreaInput"
+                app:layout_constraintTop_toBottomOf="@+id/TextView_vocaAdd_vocaArea"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp" app:layout_constraintEnd_toStartOf="@+id/ImageButton_vocaAdd_gallery"/>
+        <ImageButton
+                android:id="@+id/ImageButton_vocaAdd_gallery"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_gallery"
+                app:layout_constraintTop_toTopOf="@+id/EditText_vocaAdd_vocaAreaInput"
+                app:layout_constraintBottom_toBottomOf="@+id/EditText_vocaAdd_vocaAreaInput"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"/>
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" tools:srcCompat="@drawable/ic_launcher_foreground"
+                android:id="@+id/ImageView_vocaAdd_imageView"
+                app:layout_constraintTop_toBottomOf="@+id/EditText_vocaAdd_vocaAreaInput"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+        

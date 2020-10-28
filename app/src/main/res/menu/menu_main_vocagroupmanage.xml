@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_main_vocagroupAdd"
+        android:title="@string/vocagroupadd"/>
+<!--    <item-->
+<!--            android:id="@+id/menu_main_vocagroupModify"-->
+<!--            android:title="@string/vocagroupmodify"/>-->
+<!--    <item-->
+<!--        android:id="@+id/menu_main_vocaLearningCycleAdd"-->
+<!--        android:title="@string/titlevocaLearningCycleAdd"/>-->
+    <item
+            android:id="@+id/menu_main_vocaLearningCycleManage"
+            android:title="@string/titlevocaLearningCycleManage"/>
+
+</menu>

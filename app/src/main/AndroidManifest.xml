@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.example.vocacyclicreview">
+
+    <uses-feature
+            android:name="android.hardware.camera"
+            android:required="true"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <application
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label=""
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:requestLegacyExternalStorage="true"
+            android:theme="@style/AppTheme">
+        <activity android:name=".VocaLearningCycleModify">
+        </activity>
+        <activity android:name=".VocaLearningCycleManage">
+        </activity>
+        <activity android:name=".VocaLearningCycleAdd">
+        </activity>
+        <activity android:name=".SettingAccountFindpassword">
+        </activity>
+        <activity android:name=".SettingAccountRegister">
+        </activity>
+        <activity android:name=".Help">
+        </activity>
+        <activity android:name=".SettingAbout">
+        </activity>
+        <activity android:name=".SettingAccount">
+        </activity>
+        <activity android:name=".VocaShow">
+        </activity>
+        <activity
+                android:name=".vocagroup.VocagroupAdd"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
+        </activity>
+        <activity
+                android:name=".vocagroup.VocagroupModify"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
+        </activity>
+        <activity android:name=".vocagroup.VocagroupInfo">
+        </activity>
+        <activity
+                android:name=".VocaAdd"
+                android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity
+                android:name=".VocaModify"
+                android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name=".VocaInfo">
+        </activity>
+        <activity android:name=".VocaSearch">
+        </activity>
+        <activity android:name=".Tutorial">
+        </activity>
+        <activity android:name=".Setting">
+        </activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="com.example.vocacyclicreview.fileprovider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths"/>
+        </provider>
+    </application>
+
+</manifest>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+              android:layout_height="wrap_content" xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_marginTop="24dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView
+                tools:text="@string/vocagrouparea"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/TextView_vocagroupAdd_vocagroupArea"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        <ImageButton
+                android:id="@+id/ImageButton_vocagroupAdd_areaDelete"
+                android:layout_width="30dp" android:layout_height="30dp"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="16dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="horizontal"
+                  android:layout_marginVertical="8dp">
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textNoSuggestions"
+                android:imeOptions="actionDone"
+                android:hint="@string/vocagroupareaExample"
+                android:ems="10"
+                android:cursorVisible="false"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/EditText_vocagroupAdd_vocagroupAreaInput"/>
+        <Switch
+                android:text="@string/arealocationSetting"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/Switch_vocagroupAdd_areaSwitch"
+                android:thumb="@drawable/switch_thumb_selector"
+                android:track="@drawable/switch_track"
+                android:switchPadding="5dp"
+                android:showText="true"
+                android:textOff="@string/frontside"
+                android:textOn="@string/backside"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstraintLayout_vocaFront"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".VocaShow">
+
+    <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#4a4646"
+            android:theme="?attr/actionBarTheme"
+            android:minHeight="?attr/actionBarSize" android:id="@+id/Toolbar_vocaFront_upper"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+    />
+    <ImageButton
+            android:contentDescription="@string/goback"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/abc_vector_test"
+            android:id="@+id/ImageButton_vocaFront_goBack"
+            app:layout_constraintStart_toStartOf="@+id/Toolbar_vocaFront_upper"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/ImageButton_vocaFront_add"
+            app:layout_constraintTop_toTopOf="@+id/Toolbar_vocaFront_upper"
+            app:layout_constraintBottom_toBottomOf="@+id/Toolbar_vocaFront_upper"/>
+    <ImageButton
+            android:contentDescription="@string/add"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@android:color/transparent"
+            app:srcCompat="@android:drawable/ic_menu_add"
+            android:id="@+id/ImageButton_vocaFront_add"
+            app:layout_constraintStart_toEndOf="@+id/ImageButton_vocaFront_goBack"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/ImageButton_vocaFront_modify"
+            app:layout_constraintTop_toTopOf="@+id/ImageButton_vocaFront_goBack"/>
+    <ImageButton
+            android:contentDescription="@string/modify"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@android:color/transparent"
+            app:srcCompat="@android:drawable/ic_menu_edit"
+            android:id="@+id/ImageButton_vocaFront_modify"
+            app:layout_constraintStart_toEndOf="@+id/ImageButton_vocaFront_add"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/ImageButton_vocaFront_search"
+            app:layout_constraintTop_toTopOf="@+id/ImageButton_vocaFront_add"/>
+    <ImageButton
+            android:contentDescription="@string/search"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@android:color/transparent"
+            app:srcCompat="@android:drawable/ic_menu_search"
+            android:id="@+id/ImageButton_vocaFront_search"
+            app:layout_constraintStart_toEndOf="@+id/ImageButton_vocaFront_modify"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/ImageButton_vocaFront_info"
+            app:layout_constraintTop_toTopOf="@+id/ImageButton_vocaFront_modify"/>
+    <ImageButton
+            android:contentDescription="@string/info"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@android:color/transparent"
+            app:srcCompat="@android:drawable/ic_dialog_info"
+            android:id="@+id/ImageButton_vocaFront_info"
+            app:layout_constraintStart_toEndOf="@+id/ImageButton_vocaFront_search"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="@+id/Toolbar_vocaFront_upper"
+            app:layout_constraintTop_toTopOf="@+id/ImageButton_vocaFront_search"/>
+    <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#4a4646"
+            android:theme="?attr/actionBarTheme"
+            android:minHeight="?attr/actionBarSize" android:id="@+id/Toolbar_vocaFront_lower"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintBottom_toBottomOf="parent"/>
+    <TextView
+            android:text="@string/New"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/TextView_vocaFront_new"
+            android:textColor="@android:color/background_light"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toStartOf="@+id/Toolbar_vocaFront_lower"
+            app:layout_constraintBaseline_toBaselineOf="@+id/TextView_vocaFront_newCount" android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/TextView_vocaFront_newCount"/>
+    <TextView
+            tools:text="@string/NewVoca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/TextView_vocaFront_newCount"
+            android:textColor="#4e86ed"
+            app:layout_constraintStart_toEndOf="@+id/TextView_vocaFront_new"
+            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/TextView_vocaFront_wrong"
+            app:layout_constraintBaseline_toBaselineOf="@+id/TextView_vocaFront_wrong" android:textSize="18sp"
+    />
+    <TextView
+            android:text="@string/Wrong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/TextView_vocaFront_wrong"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintStart_toEndOf="@+id/TextView_vocaFront_newCount" android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/TextView_vocaFront_wrongCount"
+            app:layout_constraintBaseline_toBaselineOf="@+id/TextView_vocaFront_wrongCount" android:textSize="18sp"
+    />
+    <TextView
+            tools:text="@string/WrongVoca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/TextView_vocaFront_wrongCount"
+            android:textColor="#ed2121"
+            app:layout_constraintStart_toEndOf="@+id/TextView_vocaFront_wrong"
+            android:layout_marginStart="8dp" app:layout_constraintBaseline_toBaselineOf="@+id/TextView_vocaFront_review"
+            android:textSize="18sp" app:layout_constraintEnd_toStartOf="@+id/TextView_vocaFront_review"
+    />
+    <TextView
+            android:text="@string/Review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/TextView_vocaFront_review"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintStart_toEndOf="@+id/TextView_vocaFront_wrongCount"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/TextView_vocaFront_reviewCount"
+            android:textSize="18sp" app:layout_constraintEnd_toStartOf="@+id/TextView_vocaFront_reviewCount"
+    />
+    <TextView
+            tools:text="@string/ReviewVoca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/TextView_vocaFront_reviewCount"
+            android:textColor="#ed934e"
+            app:layout_constraintEnd_toEndOf="@+id/Toolbar_vocaFront_lower"
+            android:layout_marginRight="12dp" android:layout_marginEnd="12dp"
+            app:layout_constraintStart_toEndOf="@+id/TextView_vocaFront_review" android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp" app:layout_constraintBottom_toBottomOf="@+id/Toolbar_vocaFront_lower"
+            app:layout_constraintTop_toTopOf="@+id/Toolbar_vocaFront_lower" android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp" android:textSize="18sp"/>
+    <TextView
+            android:text="@string/noWords"
+            android:textSize="30sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/TextView_vocaFront_noWords"
+            android:gravity="center_horizontal"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ListView_vocaFront_listview"
+            android:layout_width="match_parent" android:layout_height="0dp"
+            android:divider="#00000000"
+            app:layout_constraintTop_toBottomOf="@id/Toolbar_vocaFront_upper" android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/Toolbar_vocaFront_lower">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+            android:id="@+id/TextView_timeCount"
+            android:layout_width="wrap_content" android:layout_height="0dp"
+            android:text="5"
+            android:textColor="@color/colorAccent"
+            android:textSize="25sp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/ListView_vocaFront_listview"
+            app:layout_constraintBottom_toTopOf="@+id/Toolbar_vocaFront_lower"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp"/>
+
+    <Button
+            android:text="@string/dontknow"
+            android:textSize="20sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#ed2121"
+            android:visibility="gone"
+            android:id="@+id/Button_vocaBack_dontknow"
+            app:layout_constraintStart_toStartOf="@+id/Toolbar_vocaFront_lower"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/Button_vocaBack_know"
+            app:layout_constraintBottom_toBottomOf="@+id/Toolbar_vocaFront_lower"
+            app:layout_constraintTop_toTopOf="@+id/Toolbar_vocaFront_lower" android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+    <Button
+            android:text="@string/know"
+            android:textSize="20sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#49c90e"
+            android:visibility="gone"
+            android:id="@+id/Button_vocaBack_know"
+            app:layout_constraintStart_toEndOf="@+id/Button_vocaBack_dontknow"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/Button_vocaBack_completeknow"
+            app:layout_constraintTop_toTopOf="@+id/Button_vocaBack_dontknow"/>
+    <Button
+            android:text="@string/completeknow"
+            android:textSize="20sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_completeknow_selector"
+            android:visibility="gone"
+            android:id="@+id/Button_vocaBack_completeknow"
+            app:layout_constraintStart_toEndOf="@+id/Button_vocaBack_know"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="@+id/Toolbar_vocaFront_lower"
+            app:layout_constraintTop_toTopOf="@+id/Button_vocaBack_dontknow"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,139 @@
+<resources>
+    <string name="app_name">Voca Cyclic Review</string>
+
+    <string name="modify">수정</string>
+    <string name="search">검색</string>
+    <string name="add">추가</string>
+    <string name="goback">뒤로</string>
+    <string name="info">정보</string>
+    <string name="setting">설정</string>
+    <string name="filter">필터</string>
+    <string name="selection">선택</string>
+    <string name="synchronize">동기화</string>
+    <string name="vocagroupmanage">단어장 관리</string>
+    <string name="vocaupload">단어 업로드</string>
+    <string name="profiles">Profiles</string>
+    <string name="help">도움말</string>
+
+    <string name="vocagroupadd">단어장 추가</string>
+    <string name="vocagroupmodify">단어장 수정</string>
+
+    <string name="New">New</string>
+    <string name="Wrong">Wrong</string>
+    <string name="Review">Review</string>
+    <string name="NewVoca">새 단어 수</string>
+    <string name="WrongVoca">틀린 단어 수</string>
+    <string name="ReviewVoca">복습할 단어 수</string>
+
+    <string name="know">앎</string>
+    <string name="dontknow">모름</string>
+    <string name="completeknow">완전 앎</string>
+
+    <string name="titlevocalistsearch">단어 목록 검색</string>
+    <string name="titlevocagroupadd">단어장 추가</string>
+    <string name="titlevocagroupmodify">단어장 수정</string>
+
+    <string name="titlevocaLearningCycleAdd">단어 학습 주기 추가</string>
+    <string name="titlevocaLearningCycleModify">단어 학습 주기 수정</string>
+    <string name="titlevocaLearningCycleManage">단어 학습 주기 관리</string>
+    <string name="vocaLearningCycleName">단어 학습 주기 이름</string>
+    <string name="vocaLearningCycleNameExample">예) 영단어 학습 주기</string>
+    <string name="vocaLearningCycleArea">주기</string>
+    <string name="vocaLearningCycleAreaAdd">+ 주기 추가하기</string>
+    <string name="vocaLearningCycleAreaExample">예) 1, 3, 7, 14, ... 등의 숫자 한 개</string>
+
+    <string name="titlevocaadd">단어 추가</string>
+    <string name="titlevocamodify">단어 수정</string>
+    <string name="vocaBold">B</string>
+    <string name="vocaItalic">I</string>
+    <string name="recordStart">녹음 시작</string>
+    <string name="recordEnd">녹음 끝</string>
+    <string name="close">닫기</string>
+
+    <string name="titlevocagroupinfo">단어장 정보</string>
+    <string name="titlevocainfo">단어 정보</string>
+
+    <string name="titlesetting">설정</string>
+    <string name="settingaccount">계정 설정</string>
+    <string name="titlelogin">계정 로그인</string>
+    <string name="titleregister">계정 등록</string>
+    <string name="email">이메일</string>
+    <string name="password">비밀번호</string>
+    <string name="passwordCheck">비밀번호 확인</string>
+    <string name="login">로그인</string>
+    <string name="loginFail">올바르지 않은 이메일 또는 비밀번호입니다.</string>
+    <string name="register">계정 만들기</string>
+    <string name="registerButton">등록</string>
+    <string name="registerPasswordCheckSucceed">계정 등록이 완료되었습니다.</string>
+    <string name="registerPasswordCheckFail">비밀번호가 일치하지 않습니다.</string>
+    <string name="findpassword">비밀번호 찾기</string>
+    <string name="sendtemppassword">비밀번호 전송</string>
+    <string name="sendtemppasswordMessage">비밀번호를 메일로 전송했습니다.</string>
+    <string name="sendtemppasswordMailTitle">Voca Cyclic Review 비밀번호를 보내드립니다.</string>
+    <string name="sendtemppasswordMailText1">비밀번호는</string>
+    <string name="sendtemppasswordMailText2">입니다.</string>
+
+    <string name="settingvocalearningcycle">단어 학습 주기 설정</string>
+    <string name="settingtheme">테마 설정</string>
+    <string name="settingbackup">백업 설정</string>
+    <string name="about">About</string>
+    <string name="reset">초기화하기</string>
+
+    <string name="titletutorial">도움말</string>
+
+    <string name="titlesettingAbout">About</string>
+    <string name="aboutDeveloper">제작자</string>
+    <string name="aboutDeveloperName">안경호</string>
+    <string name="aboutDeveloperEmail">이메일</string>
+    <string name="aboutDeveloperEmailAddress">abc123@gmail.com</string>
+
+    <string name="aboutEmailSubject">건의사항</string>
+
+    <string name="totalvocacount">포함 단어 수</string>
+    <string name="vocagroupname">단어장 이름</string>
+    <string name="vocagroupnameExample">예) 영어 단어 모음</string>
+    <string name="vocagroupcycle">단어장 학습 주기</string>
+    <string name="vocagrouparea">영역</string>
+    <string name="vocagroupareaadd">+ 영역 추가하기</string>
+    <string name="vocagroupexample">영어 단어 모음</string>
+    <string name="area1example">단어</string>
+    <string name="area2example">의미</string>
+    <string name="area3example">예문</string>
+    <string name="vocagroupareaExample">예) 단어, 의미, 예문 등</string>
+    <string name="vocagroupselect">단어장 :</string>
+    <string name="vocadelete">단어 삭제</string>
+
+
+    <string name="arealocationSetting">위치 설정</string>
+    <string name="arealocation">위치</string>
+    <string name="frontside">앞</string>
+    <string name="backside">뒤</string>
+
+
+    <string name="currentlearningcycle">현재 학습 주기</string>
+
+    <string name="searchInput">검색하실 단어를 입력하세요.</string>
+
+    <string name="noWords">학습할 단어가 없습니다.\n
+        단어를 추가해주세요.</string>
+    <string name="noMoreLearning">더이상 학습할 단어가 없습니다.</string>
+
+    <string name="searchexample">Voca Search List Example</string>
+    <string name="userexample1">User 1</string>
+    <string name="userexample2">User 2</string>
+
+    <string name="colon">:</string>
+
+    <string-array name="themeColor">
+        <item>"밝은 테마"</item>
+        <item>"어두운 테마"</item>
+    </string-array>
+
+    <string-array name="takePhoto">
+        <item>"카메라"</item>
+        <item>"갤러리"</item>
+        <item>"사진 제거"</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
