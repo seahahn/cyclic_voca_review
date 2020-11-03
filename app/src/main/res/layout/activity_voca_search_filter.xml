@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/fui_transparent"
+        android:orientation="vertical"
+        tools:context=".VocaSearchFilter">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <ImageView
+                android:contentDescription="@string/search"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@android:drawable/ic_search_category_default"
+                android:id="@+id/ImageView_vocaSearchFilter_searchIcon"/>
+        <EditText
+                android:id="@+id/EditText_vocaSearchFilter_editSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/searchFilterInput"
+                android:inputType="text"
+        android:layout_weight="1"/>
+        <TextView
+                android:id="@+id/TextView_close"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_horizontal"
+                android:backgroundTint="@color/fui_transparent"
+                android:text="@string/close"
+                android:textSize="20sp"
+                android:textColor="@color/colorSwitchRed"
+                android:layout_weight="2.5"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                />
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ListView_vocaSearchFilter_listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#999999"
+            android:dividerHeight="1dp">
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+</LinearLayout>

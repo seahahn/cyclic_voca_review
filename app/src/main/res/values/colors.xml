@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#1f1f1f</color>
     <color name="colorAccent">#000000</color>
     <color name="colorAccentReverse">#ffffff</color>
+    <color name="colorTextHighlight">#3F51B5</color>
 
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>

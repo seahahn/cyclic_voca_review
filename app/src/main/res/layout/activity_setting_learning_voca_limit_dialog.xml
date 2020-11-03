@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="24dp">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:text="@string/learningVocaLimitTitle"
+    android:textSize="20sp"
+    android:layout_marginBottom="16dp"/>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:text="@string/learningVocaLimitMessage"
+    android:textSize="18sp"
+    android:layout_marginBottom="16dp"/>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="horizontal">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:text="@string/learningVocaLimitNew"
+                  android:textSize="18sp"
+        android:layout_weight="7"/>
+        <EditText android:id="@+id/newVocaLimitInput"
+                  android:inputType="number"
+                  android:autofillHints="@string/learningVocaLimitNewHint"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:layout_marginBottom="8dp"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="horizontal">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:text="@string/learningVocaLimitReview"
+                  android:textSize="18sp"
+        android:layout_weight="7"/>
+
+        <EditText android:id="@+id/reviewVocaLimitInput"
+                  android:inputType="number"
+                  android:autofillHints="@string/learningVocaLimitReviewHint"
+                  android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_weight="3"/>
+    </LinearLayout>
+
+
+
+<!--    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"-->
+<!--                  android:orientation="horizontal"-->
+<!--    android:gravity="end">-->
+<!--        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+<!--                android:text="@string/cancel"-->
+<!--                android:textSize="16sp"-->
+<!--        android:layout_gravity="end"-->
+<!--        android:background="@color/fui_transparent"/>-->
+<!--        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+<!--        android:text="@string/okay"-->
+<!--                android:textSize="16sp"-->
+<!--        android:layout_gravity="end"-->
+<!--                android:background="@color/fui_transparent"/>-->
+<!--    </LinearLayout>-->
+
+
+</LinearLayout>

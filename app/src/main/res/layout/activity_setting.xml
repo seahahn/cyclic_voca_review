@@ -74,11 +74,11 @@
                     android:layout_marginTop="32dp" app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             <Button
-                    android:text="@string/settingbackup"
+                    android:text="@string/settinglearning"
                     android:textSize="20sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/Button_setting_backup"
+                    android:id="@+id/Button_setting_learning"
                     android:background="@drawable/button_mainandsetting_background"
                     app:layout_constraintTop_toBottomOf="@+id/Button_setting_theme"
                     app:layout_constraintBottom_toTopOf="@+id/Button_setting_about"

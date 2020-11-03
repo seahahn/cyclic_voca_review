@@ -97,7 +97,7 @@
                         android:id="@+id/TextView_settingAbout_aboutDeveloperEmailAddress"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text="@string/aboutDeveloperEmailAddress"
-                        android:textSize="24sp"/>
+                        android:textSize="19sp"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">Voca Cyclic Review</string>
+    <string name="app_name">Cyclic Voca Review</string>
+
+    <string name="okay">확인</string>
+    <string name="cancel">취소</string>
 
     <string name="modify">수정</string>
     <string name="search">검색</string>
@@ -17,6 +20,11 @@
 
     <string name="vocagroupadd">단어장 추가</string>
     <string name="vocagroupmodify">단어장 수정</string>
+    <string name="vocagroupstudy">단어 학습 시작</string>
+    <string name="vocagroupupload">단어 업로드</string>
+    <string name="dataBackup">백업</string>
+    <string name="dataBackupWrite">백업파일 내보내기</string>
+    <string name="dataBackupRead">백업파일 불러오기</string>
 
     <string name="New">New</string>
     <string name="Wrong">Wrong</string>
@@ -65,6 +73,8 @@
     <string name="register">계정 만들기</string>
     <string name="registerButton">등록</string>
     <string name="registerPasswordCheckSucceed">계정 등록이 완료되었습니다.</string>
+    <string name="registerEmailCheck">올바른 이메일 주소를 입력해주세요.</string>
+    <string name="verifyEmail">인증하기</string>
     <string name="registerPasswordCheckFail">비밀번호가 일치하지 않습니다.</string>
     <string name="findpassword">비밀번호 찾기</string>
     <string name="sendtemppassword">비밀번호 전송</string>
@@ -76,6 +86,18 @@
     <string name="settingvocalearningcycle">단어 학습 주기 설정</string>
     <string name="settingtheme">테마 설정</string>
     <string name="settingbackup">백업 설정</string>
+    <string name="settinglearning">학습 관련 설정</string>
+
+    <string name="settinglearningVocaOrder">새 단어/복습할 단어 순서 설정</string>
+    <string name="settinglearningVocaLimit">단어 학습 갯수 설정</string>
+    <string name="learningVocaLimitTitle">학습할 단어 갯수 설정</string>
+    <string name="learningVocaLimitMessage">각각 설정한 숫자를 최대로 하여 새 단어와 \n복습할 단어가 학습 목록에 추가됩니다.</string>
+    <string name="learningVocaLimitNew">새 단어</string>
+    <string name="learningVocaLimitReview">복습할 단어</string>
+    <string name="learningVocaLimitNewHint">불러올 새 단어 갯수의 최댓값을 입력해주세요.</string>
+    <string name="learningVocaLimitReviewHint">불러올 복습할 단어 갯수의 최댓값을 입력해주세요.</string>
+    <string name="settinglearningCountLimit">단어 학습 카운트다운 설정</string>
+
     <string name="about">About</string>
     <string name="reset">초기화하기</string>
 
@@ -85,7 +107,7 @@
     <string name="aboutDeveloper">제작자</string>
     <string name="aboutDeveloperName">안경호</string>
     <string name="aboutDeveloperEmail">이메일</string>
-    <string name="aboutDeveloperEmailAddress">abc123@gmail.com</string>
+    <string name="aboutDeveloperEmailAddress">seah.ahn.nt@gmail.com</string>
 
     <string name="aboutEmailSubject">건의사항</string>
 
@@ -110,23 +132,52 @@
     <string name="backside">뒤</string>
 
 
-    <string name="currentlearningcycle">현재 학습 주기</string>
+    <string name="currentlearningcycle">현재 학습 주기 :</string>
 
     <string name="searchInput">검색하실 단어를 입력하세요.</string>
+    <string name="searchFilterInput">검색하실 필터를 입력하세요.</string>
+    <string name="searchFilterNone">필터 없음</string>
+    <string name="searchFilterVocaCycleListWrong">틀린 단어</string>
+    <string name="searchFilterVocaCycleListNew">새 단어</string>
+    <string name="searchFilterVocaCycleListReview">복습할 단어</string>
+    <string-array name="searchFilterVocaCycleList">
+        <item>"틀린 단어"</item>
+        <item>"새 단어"</item>
+        <item>"복습할 단어"</item>
+    </string-array>
 
     <string name="noWords">학습할 단어가 없습니다.\n
-        단어를 추가해주세요.</string>
+        단어를 추가해주세요.
+    </string>
     <string name="noMoreLearning">더이상 학습할 단어가 없습니다.</string>
 
     <string name="searchexample">Voca Search List Example</string>
     <string name="userexample1">User 1</string>
     <string name="userexample2">User 2</string>
 
+    <string name="english">영어</string>
+    <string name="chinese_Simplified">중국어-간체</string>
+    <string name="chinese_traditional">중국어-번체</string>
+    <string name="japanese">일본어</string>
+    <string name="spanish">스페인어</string>
+    <string name="french">프랑스어</string>
+    <string name="russian">러시아어</string>
+    <string name="german">독일어</string>
+    <string name="italian">이탈리아어</string>
+    <string name="vietnamese">베트남어</string>
+    <string name="indonesian">인도네시아어</string>
+    <string name="thai">태국어</string>
+
     <string name="colon">:</string>
 
     <string-array name="themeColor">
         <item>"밝은 테마"</item>
         <item>"어두운 테마"</item>
+    </string-array>
+
+    <string-array name="vocaOrder">
+        <item>"새 단어"</item>
+        <item>"복습할 단어"</item>
     </string-array>
 
     <string-array name="takePhoto">

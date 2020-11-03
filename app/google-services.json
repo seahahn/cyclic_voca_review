@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "418874028446",
+    "firebase_url": "https://login-96ccf.firebaseio.com",
+    "project_id": "login-96ccf",
+    "storage_bucket": "login-96ccf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418874028446:android:c78985cb7a3a9838a7668f",
+        "android_client_info": {
+          "package_name": "com.seahahn.vocacyclicreview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418874028446-v2md8nahjrcu43sc73j4ao84ndode2fv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.seahahn.vocacyclicreview",
+            "certificate_hash": "b23ed23ee5765ae68089cc725a9c88c6c04dc081"
+          }
+        },
+        {
+          "client_id": "418874028446-i76nl49asomldf26a47a17544bdsgaf3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbJFe8lccisljU46PXymrvCu2a4FrWTJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418874028446-i76nl49asomldf26a47a17544bdsgaf3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

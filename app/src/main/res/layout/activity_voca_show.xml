@@ -60,19 +60,8 @@
             android:id="@+id/ImageButton_vocaFront_search"
             app:layout_constraintStart_toEndOf="@+id/ImageButton_vocaFront_modify"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintEnd_toStartOf="@+id/ImageButton_vocaFront_info"
-            app:layout_constraintTop_toTopOf="@+id/ImageButton_vocaFront_modify"/>
-    <ImageButton
-            android:contentDescription="@string/info"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@android:color/transparent"
-            app:srcCompat="@android:drawable/ic_dialog_info"
-            android:id="@+id/ImageButton_vocaFront_info"
-            app:layout_constraintStart_toEndOf="@+id/ImageButton_vocaFront_search"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toEndOf="@+id/Toolbar_vocaFront_upper"
-            app:layout_constraintTop_toTopOf="@+id/ImageButton_vocaFront_search"/>
+            app:layout_constraintTop_toTopOf="@+id/ImageButton_vocaFront_modify"/>
     <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

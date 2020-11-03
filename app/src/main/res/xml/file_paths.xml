@@ -5,17 +5,17 @@
 
     <external-path
             name="external"
-            path="Android/data/com.example.vocacyclicreview/files/Pictures" />
+            path="Android/data/com.seahahn.vocacyclicreview/files/Pictures" />
     <external-files-path
             name="external_files"
-            path="Android/data/com.example.vocacyclicreview/files/Pictures" />
+            path="Android/data/com.seahahn.vocacyclicreview/files/Pictures" />
     <cache-path
             name="cache"
-            path="Android/data/com.example.vocacyclicreview/files/Pictures" />
+            path="Android/data/com.seahahn.vocacyclicreview/files/Pictures" />
     <external-cache-path
             name="external_cache"
-            path="Android/data/com.example.vocacyclicreview/files/Pictures" />
+            path="Android/data/com.seahahn.vocacyclicreview/files/Pictures" />
     <files-path
             name="files"
-            path="Android/data/com.example.vocacyclicreview/files/Pictures" />
+            path="Android/data/com.seahahn.vocacyclicreview/files/Pictures" />
 </paths>

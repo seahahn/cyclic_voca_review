@@ -11,6 +11,8 @@
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/TextView_vocaShow_item"
+            android:textIsSelectable="true"
+            android:textColorHighlight="@color/colorTextHighlight"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="50dp"/>
     <ImageView

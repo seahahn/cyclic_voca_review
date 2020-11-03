@@ -7,14 +7,19 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">#ffffff</item>
 
-
-
         <item name="switchStyle">@style/Switch</item>
     </style>
 
     <style name="Switch" parent="Widget.AppCompat.CompoundButton.Switch">
         <item name="android:thumb">@drawable/switch_thumb_selector</item>
         <item name="android:track">@drawable/switch_track</item>
+    </style>
+
+    <style name="VocaTextActionMode" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">#ffffff</item>
     </style>
 
 

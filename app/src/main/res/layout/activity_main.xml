@@ -72,7 +72,7 @@
             tools:layout_editor_absoluteX="-48dp" android:layout_marginBottom="0dp"
             app:layout_constraintBottom_toBottomOf="parent"/>
     <Button
-            android:text="@string/vocaupload"
+            android:text="@string/dataBackup"
             android:textColor="#000000"
             android:textSize="18sp"
             android:layout_width="wrap_content"
