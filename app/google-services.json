@@ -8,20 +8,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:418874028446:android:c78985cb7a3a9838a7668f",
+        "mobilesdk_app_id": "1:418874028446:android:27a0b463dafe9f4ea7668f",
         "android_client_info": {
-          "package_name": "com.seahahn.vocacyclicreview"
+          "package_name": "com.seahahn.cyclicvocareview"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "418874028446-v2md8nahjrcu43sc73j4ao84ndode2fv.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.seahahn.vocacyclicreview",
-            "certificate_hash": "b23ed23ee5765ae68089cc725a9c88c6c04dc081"
-          }
-        },
         {
           "client_id": "418874028446-i76nl49asomldf26a47a17544bdsgaf3.apps.googleusercontent.com",
           "client_type": 3

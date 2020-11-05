@@ -157,7 +157,7 @@ public class VocagroupAdd extends AppCompatActivity {
                 // 단어장 제목 중복 체크
                 boolean vocagroupOverlapCheck = false;
                 for(int i = 0; i < vocagroupList.size(); i++){
-                    if(vocagroupList.get(i).getVocagroupName().equals(EditText_vocagroupAdd_vocagroupNameInput.getText().toString())){
+                    if(vocagroupList.get(i).getVocagroupName().equals(EditText_vocagroupAdd_vocagroupNameInput.getText().toString()+" vocagroupName")){
                         vocagroupOverlapCheck = true;
                     }
                 }
@@ -173,8 +173,9 @@ public class VocagroupAdd extends AppCompatActivity {
 
                 } else if (vocagroupOverlapCheck) {
                     // 단어장 제목이 기존에 있는 단어장의 제목과 동일한 경우
-                    Toast.makeText(getApplicationContext(), "동일한 제목의 단어장이 있습니다.\n다른 제목을 입력해주세요.",Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(getApplicationContext(), "동일한 제목의 단어장이 있습니다.\n다른 제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else if(Switch_vocagroupAdd_area1Switch.isChecked() == Switch_vocagroupAdd_area2Switch.isChecked()){
+                    Toast.makeText(getApplicationContext(), "영역 1과 2의 앞/뒤 방향을 다르게 설정해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
                     Vocagroup vocagroup = new Vocagroup(EditText_vocagroupAdd_vocagroupNameInput.getText().toString(),
                             vocaLearningCycleName,

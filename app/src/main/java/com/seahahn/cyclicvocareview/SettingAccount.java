@@ -154,7 +154,10 @@ public class SettingAccount extends AppCompatActivity implements GoogleApiClient
 
         // 구글 로그인 결과 받는 곳
         if(requestCode == REQ_SIGN_GOOGLE){
+            Log.d(TAG, "requestCode 작동 여부");
+            Log.d(TAG, "data 작동 여부 : "+data);
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            Log.d(TAG, "isSuccess 작동 여부 : "+result.isSuccess());
             if(result.isSuccess()){
                 GoogleSignInAccount account = result.getSignInAccount(); // account 안에 구글 닉네임, 프로필 사진 URL, 이메일 등 데이터 다 들어있음
                 resultLogin(account); // 로그인 결과값 출력 수행하는 메소드
@@ -164,6 +167,7 @@ public class SettingAccount extends AppCompatActivity implements GoogleApiClient
     }
 
     private void resultLogin(final GoogleSignInAccount account) {
+        Log.d(TAG, "resultLogin 작동 여부");
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

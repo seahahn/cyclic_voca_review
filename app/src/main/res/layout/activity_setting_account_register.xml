@@ -71,7 +71,8 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="32dp" android:layout_marginStart="32dp" app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginLeft="32dp" android:layout_marginStart="32dp"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="1dp" app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginBottom="1dp"/>
             <View
@@ -79,7 +80,8 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="32dp"
-                    android:layout_marginEnd="32dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="1dp"
+                    android:layout_marginEnd="32dp" app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="1dp"
                     app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="1dp"/>
             <View
                     android:id="@+id/divider_upper"
@@ -142,7 +144,45 @@
                     app:layout_constraintTop_toBottomOf="@+id/TextView_settingAccountRegister_passwordCheck"
                     app:layout_constraintStart_toStartOf="@+id/TextView_settingAccountRegister_email"
                     android:layout_marginTop="24dp" app:layout_constraintEnd_toStartOf="@+id/divider_right"
-                    android:layout_marginBottom="32dp" app:layout_constraintBottom_toBottomOf="parent"/>
+            />
+
+<!--            <CheckBox android:id="@+id/CheckBox_all"-->
+<!--                      android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+<!--                      app:layout_constraintTop_toBottomOf="@+id/EditText_settingAccountRegister_passwordCheckInput"-->
+<!--                      app:layout_constraintStart_toStartOf="@+id/TextView_settingAccountRegister_email"-->
+<!--                      android:layout_marginTop="16dp"/>-->
+<!--            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+<!--                      android:text="모두 동의하기"-->
+<!--                      android:textSize="20sp"-->
+<!--                      android:layout_marginStart="8dp"-->
+<!--                      app:layout_constraintStart_toEndOf="@+id/CheckBox_all"-->
+<!--                      app:layout_constraintTop_toTopOf="@+id/CheckBox_all"-->
+<!--                      app:layout_constraintBottom_toBottomOf="@+id/CheckBox_all"/>-->
+            <CheckBox android:id="@+id/CheckBox_serviceAgree"
+                      android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      app:layout_constraintTop_toBottomOf="@+id/EditText_settingAccountRegister_passwordCheckInput"
+                      app:layout_constraintStart_toStartOf="@+id/TextView_settingAccountRegister_email"
+                      android:layout_marginTop="16dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="[필수] 서비스 이용 약관"
+                      android:textSize="20sp"
+                      tools:layout_editor_absoluteY="454dp" android:layout_marginStart="8dp"
+                      app:layout_constraintStart_toEndOf="@+id/CheckBox_serviceAgree"
+                      app:layout_constraintTop_toTopOf="@+id/CheckBox_serviceAgree"
+                      app:layout_constraintBottom_toBottomOf="@+id/CheckBox_serviceAgree"/>
+            <CheckBox android:id="@+id/CheckBox_personalInfoAgree"
+                      android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      app:layout_constraintTop_toBottomOf="@+id/CheckBox_serviceAgree"
+                      app:layout_constraintStart_toStartOf="@+id/TextView_settingAccountRegister_email"
+                      android:layout_marginTop="16dp" app:layout_constraintBottom_toBottomOf="parent"
+                      android:layout_marginBottom="32dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:text="[필수] 개인정보 수집 및 이용 약관"
+                      android:textSize="20sp"
+                      tools:layout_editor_absoluteY="454dp" android:layout_marginStart="8dp"
+                      app:layout_constraintStart_toEndOf="@+id/CheckBox_personalInfoAgree"
+                      app:layout_constraintTop_toTopOf="@+id/CheckBox_personalInfoAgree"
+                      app:layout_constraintBottom_toBottomOf="@+id/CheckBox_personalInfoAgree"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

@@ -83,6 +83,15 @@
                         android:layout_marginBottom="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/RadioButton_vi"/>
+                <RadioButton
+                        android:text="@string/korean"
+                        android:textSize="18sp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/RadioButton_ko"/>
             </RadioGroup>
 
             <RadioGroup android:layout_width="wrap_content" android:layout_height="match_parent"

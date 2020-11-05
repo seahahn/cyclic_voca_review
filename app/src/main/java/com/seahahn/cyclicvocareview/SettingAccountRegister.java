@@ -5,10 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +15,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SettingAccountRegister extends AppCompatActivity {
+public class SettingAccountRegister extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     private static final String TAG = "SettingAccountRegister";
     ImageButton ImageButton_settingAccountRegister_goBack;
@@ -28,12 +25,24 @@ public class SettingAccountRegister extends AppCompatActivity {
     EditText EditText_settingAccountRegister_passwordInput;
     EditText EditText_settingAccountRegister_passwordCheckInput;
 
+    CheckBox CheckBox_all;
+    CheckBox CheckBox_serviceAgree;
+    CheckBox CheckBox_personalInfoAgree;
+
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_account_register);
+
+        // 이용약관 체크박스 초기화
+//        CheckBox_all = findViewById(R.id.CheckBox_all);
+        CheckBox_serviceAgree = findViewById(R.id.CheckBox_serviceAgree);
+        CheckBox_personalInfoAgree = findViewById(R.id.CheckBox_personalInfoAgree);
+//        CheckBox_all.setOnCheckedChangeListener(this);
+        CheckBox_serviceAgree.setOnCheckedChangeListener(this);
+        CheckBox_personalInfoAgree.setOnCheckedChangeListener(this);
 
         // 사용자에게 이메일 인증이 필수임을 알려주기
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -67,6 +76,8 @@ public class SettingAccountRegister extends AppCompatActivity {
             public void onClick(View v) {
                 if(EditText_settingAccountRegister_emailInput.getText().toString().equals("") || !EditText_settingAccountRegister_emailInput.getText().toString().contains("@")) {
                     Toast.makeText(SettingAccountRegister.this, R.string.registerEmailCheck, Toast.LENGTH_SHORT).show();
+                } else if(!CheckBox_serviceAgree.isChecked() || !CheckBox_personalInfoAgree.isChecked()){
+                    Toast.makeText(SettingAccountRegister.this, R.string.registerAgreeCheck, Toast.LENGTH_SHORT).show();
                 } else if(EditText_settingAccountRegister_passwordInput.getText().toString().equals(EditText_settingAccountRegister_passwordCheckInput.getText().toString())){
 //                    SettingAccount.accountList.put(EditText_settingAccountRegister_emailInput.getText().toString(), EditText_settingAccountRegister_passwordInput.getText().toString());
                     String email = EditText_settingAccountRegister_emailInput.getText().toString();
@@ -105,5 +116,53 @@ public class SettingAccountRegister extends AppCompatActivity {
             }
         });
 
+
+
+    }
+
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+//            case R.id.CheckBox_all:
+//                if(CheckBox_all.isChecked()){
+//                    CheckBox_all.setChecked(true);
+//                    CheckBox_serviceAgree.setChecked(true);
+//                    CheckBox_personalInfoAgree.setChecked(true);
+//                } else {
+//                    CheckBox_all.setChecked(false);
+//                    CheckBox_serviceAgree.setChecked(false);
+//                    CheckBox_personalInfoAgree.setChecked(false);
+//                }
+//                break;
+            case R.id.CheckBox_serviceAgree:
+                if(CheckBox_serviceAgree.isChecked()){
+                    CheckBox_serviceAgree.setChecked(true);
+//                    if(CheckBox_personalInfoAgree.isChecked()){
+//                        CheckBox_all.setChecked(true);
+//                    }
+                } else {
+                    CheckBox_serviceAgree.setChecked(false);
+//                    if(CheckBox_all.isChecked()){
+//                        CheckBox_all.setChecked(false);
+//                    }
+                }
+                break;
+            case R.id.CheckBox_personalInfoAgree:
+                if(CheckBox_personalInfoAgree.isChecked()){
+                    CheckBox_personalInfoAgree.setChecked(true);
+//                    if(CheckBox_serviceAgree.isChecked()){
+//                        CheckBox_all.setChecked(true);
+//                    }
+                } else {
+                    CheckBox_personalInfoAgree.setChecked(false);
+//                    if(CheckBox_all.isChecked()){
+//                        CheckBox_all.setChecked(false);
+//                    }
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

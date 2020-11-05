@@ -47,6 +47,8 @@
     <string name="vocaLearningCycleName">단어 학습 주기 이름</string>
     <string name="vocaLearningCycleNameExample">예) 영단어 학습 주기</string>
     <string name="vocaLearningCycleArea">주기</string>
+    <string name="vocaLearningCycleArea1">주기 1</string>
+    <string name="vocaLearningCycleArea2">주기 2</string>
     <string name="vocaLearningCycleAreaAdd">+ 주기 추가하기</string>
     <string name="vocaLearningCycleAreaExample">예) 1, 3, 7, 14, ... 등의 숫자 한 개</string>
 
@@ -74,6 +76,7 @@
     <string name="registerButton">등록</string>
     <string name="registerPasswordCheckSucceed">계정 등록이 완료되었습니다.</string>
     <string name="registerEmailCheck">올바른 이메일 주소를 입력해주세요.</string>
+    <string name="registerAgreeCheck">모든 이용약관에 동의해주세요.</string>
     <string name="verifyEmail">인증하기</string>
     <string name="registerPasswordCheckFail">비밀번호가 일치하지 않습니다.</string>
     <string name="findpassword">비밀번호 찾기</string>
@@ -116,6 +119,8 @@
     <string name="vocagroupnameExample">예) 영어 단어 모음</string>
     <string name="vocagroupcycle">단어장 학습 주기</string>
     <string name="vocagrouparea">영역</string>
+    <string name="vocagrouparea1">영역 1</string>
+    <string name="vocagrouparea2">영역 2</string>
     <string name="vocagroupareaadd">+ 영역 추가하기</string>
     <string name="vocagroupexample">영어 단어 모음</string>
     <string name="area1example">단어</string>
@@ -167,6 +172,7 @@
     <string name="vietnamese">베트남어</string>
     <string name="indonesian">인도네시아어</string>
     <string name="thai">태국어</string>
+    <string name="korean">한국어</string>
 
     <string name="colon">:</string>
 

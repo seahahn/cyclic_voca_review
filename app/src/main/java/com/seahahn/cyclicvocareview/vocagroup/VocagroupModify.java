@@ -1,4 +1,5 @@
 package com.seahahn.cyclicvocareview.vocagroup;
+import android.util.Log;
 import android.widget.Toast;
 
 import android.content.Context;
@@ -16,6 +17,7 @@ import com.seahahn.cyclicvocareview.VocaLearningCycle;
 import com.seahahn.cyclicvocareview.VocaLearningCycleAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.seahahn.cyclicvocareview.VocaShowItem;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -169,11 +171,12 @@ public class VocagroupModify extends AppCompatActivity {
                 for(int i = 0; i < vocagroupList.size(); i++){
                     if(vocagroupList.get(i).getVocagroupName().equals(EditText_vocagroupModify_vocagroupNameInput.getText().toString())){
                         vocagroupOverlapCheck = true;
-                        if(vocagroupName.equals(EditText_vocagroupModify_vocagroupNameInput.getText().toString())){
-                            vocagroupOverlapCheck = false;
-                        }
                     }
                 }
+                if(vocagroupName.equals(EditText_vocagroupModify_vocagroupNameInput.getText().toString()+" vocagroupName")){
+                    vocagroupOverlapCheck = false;
+                }
+
                 // 단어장 영역 방향 체크
                 int vocagroupSideCheck = 0;
                 for(int i = 0; i < vocagroupAreaAdapter.getData().size(); i++){
@@ -213,13 +216,23 @@ public class VocagroupModify extends AppCompatActivity {
 
 //                    Date date = new Date();
 //                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd_HH:mm");
-
-                    String vocagroupName = EditText_vocagroupModify_vocagroupNameInput.getText().toString() + " vocagroupName";
+                    // 단어장 제목이 바뀐 경우, 단어장 제목과 연결된 단어 데이터를 저장한 키값도 이에 맞춰 바꿔줘야 함
                     SharedPreferences sharedPreferences = getSharedPreferences(userID, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     Gson gson = new Gson();
-                    String vocagroupJsonSave = gson.toJson(vocagroup);
-                    editor.putString(vocagroupName, vocagroupJsonSave); // 저장할 값 입력하기
+                    String vocaListKey = vocagroupName + " vocaList";
+                    String vocaListJson = sharedPreferences.getString(vocaListKey, null);
+                    Type vocaListType = new TypeToken<ArrayList<ArrayList<VocaShowItem>>>(){}.getType();
+                    ArrayList<ArrayList<VocaShowItem>> vocaList = gson.fromJson(vocaListJson, vocaListType); // 단어장 단어 목록 불러옴
+
+                    String vocagroupName = EditText_vocagroupModify_vocagroupNameInput.getText().toString() + " vocagroupName"; // 수정된 단어장 제목
+                    String vocagroupJsonSave = gson.toJson(vocagroup); // 수정된 단어장 데이터
+                    Log.d(TAG, vocagroupJsonSave);
+                    editor.putString(vocagroupName, vocagroupJsonSave); // 수정된 단어장 제목을 Key로 하여 수정된 단어장 데이터 저장함
+
+                    String vocaListJsonM = gson.toJson(vocaList); // 단어 목록을 gson String 형태로 변환
+                    editor.putString(vocagroupName+" vocaList", vocaListJsonM); // 기존의 단어 목록을 수정된 단어장 제목을 Key로 하여 다시 저장
+                    editor.remove(vocaListKey);
                     editor.commit();
 
                     Intent intent = new Intent();

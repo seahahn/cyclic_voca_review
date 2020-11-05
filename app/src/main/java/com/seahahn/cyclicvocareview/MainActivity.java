@@ -270,10 +270,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(userID, MODE_PRIVATE);
         Gson gson = new Gson();
         String vocagroupListJson = sharedPreferences.getString("VocagroupList", null);
+        Log.d(TAG, "vocagroupListJson : "+vocagroupListJson);
         Type vocagroupListType = new TypeToken<ArrayList<Vocagroup>>(){}.getType();
         if(gson.fromJson(vocagroupListJson, vocagroupListType) != null && gson.fromJson(vocagroupListJson, vocagroupListType).toString().length() >2){
             vocagroupList = gson.fromJson(vocagroupListJson, vocagroupListType); // 기존에 저장된 단어장 있으면 데이터 가져옴
-//            Log.d(TAG, "vocagroupList : "+vocagroupList);
+            Log.d(TAG, "vocagroupList : "+vocagroupList);
         } else {
             vocagroupAdapter.removeAll(vocagroupList);
         }
@@ -296,6 +297,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String vocagroupListJson = gson.toJson(vocagroupAdapter.getData());
+        Log.d(TAG, "vocagroupListJson onPause : "+vocagroupListJson);
         editor.putString("VocagroupList", vocagroupListJson); // 저장할 값 입력하기
         editor.commit();
     }
@@ -339,14 +341,18 @@ public class MainActivity extends AppCompatActivity {
 
             assert data != null;
             String vocagroupName = data.getStringExtra("vocagroupName");
+            Log.d(TAG, "vocagroupName onResult : "+vocagroupName);
             int vocagroupPosition = data.getIntExtra("단어장 포지션", -1);
 
             SharedPreferences sharedPreferences = getSharedPreferences(userID, MODE_PRIVATE);
             Gson gson = new Gson();
             String vocagroupJsonLoad = sharedPreferences.getString(vocagroupName, null);
+            Log.d(TAG, "vocagroupJsonLoad onResult : "+vocagroupJsonLoad);
             Vocagroup vocagroup = gson.fromJson(vocagroupJsonLoad, Vocagroup.class);
+            Log.d(TAG, "vocagroup onResult : "+vocagroup);
             vocagroupList.set(vocagroupPosition, vocagroup);
             vocagroupAdapter.notifyDataSetChanged();
+            Log.d(TAG, "vocagroupList onResult : "+vocagroupList);
         } else if (requestCode == REQUEST_VOCAGROUP_MODIFY && resultCode == RESULT_CANCELED) {
             Toast.makeText(this, "단어장 수정 취소", Toast.LENGTH_SHORT).show();
         }

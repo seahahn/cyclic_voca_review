@@ -108,7 +108,7 @@
                         app:layout_constraintStart_toStartOf="@+id/TextView_vocaLearningCycleModify_vocaLearningCycleName"/>
 
                 <TextView
-                        android:text="@string/vocaLearningCycleArea"
+                        android:text="@string/vocaLearningCycleArea1"
                         android:textSize="20sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/TextView_vocaLearningCycleModify_vocaLearningCycleArea1"
                         app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"/>
                 <TextView
-                        android:text="@string/vocaLearningCycleArea"
+                        android:text="@string/vocaLearningCycleArea2"
                         android:textSize="20sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

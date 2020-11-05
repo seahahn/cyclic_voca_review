@@ -1,4 +1,5 @@
 package com.seahahn.cyclicvocareview;
+import android.net.Uri;
 import android.os.*;
 
 import android.content.Intent;
@@ -105,6 +106,13 @@ public class VocaShowTextActionModePopup extends AppCompatActivity {
 
         // 하단의 '웹 검색' 버튼 초기화
         Button_webSearch = findViewById(R.id.Button_webSearch);
+        Button_webSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.co.kr/search?newwindow=1&hl=ko&source=hp&ei=WkuiX_HMBdjr-Qa9h7WABQ&q="+input+"&oq="+input+"&gs_lcp=CgZwc3ktYWIQAzIFCAAQsQMyBQgAELEDMgUIABCxAzIFCAAQsQMyBQgAELEDMgUIABCxAzIFCAAQsQMyCAgAELEDEIMBMgIIADICCAA6BAgAEANQntMBWMbcAWCy4gFoAXAAeACAAWKIAZ4CkgEBM5gBAKABAaoBB2d3cy13aXqwAQA&sclient=psy-ab&ved=0ahUKEwjx4Z3SoujsAhXYdd4KHb1DDVAQ4dUDCAc&uact=5"));
+                startActivity(intent);
+            }
+        });
 
         // 라디오그룹에 라디오 버튼 선택 시 만들어낼 결과 구현
         // 3개의 열로 만들기 위해서 세 개의 라디오그룹으로 나누었음
@@ -203,6 +211,10 @@ public class VocaShowTextActionModePopup extends AppCompatActivity {
                     break;
                 case R.id.RadioButton_vi: // 베트남어
                     targetLang = "vi";
+                    translationThread.interrupt();
+                    break;
+                case R.id.RadioButton_ko: // 한국어
+                    targetLang = "ko";
                     translationThread.interrupt();
                     break;
             }

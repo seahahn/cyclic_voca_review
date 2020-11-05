@@ -319,8 +319,12 @@ public class VocaModify extends AppCompatActivity {
                         EditText_vocaModify_vocagroupArea2Input.getText().toString().isEmpty() &&
                         vocaAreaAdapter.isVocaAreaEmpty() == 0) {
                     // 전부 빈 영역인 경우 토스트 메시지 출력
-                    // 최소 1개의 영역에는 값이 있어야 함
-                    Toast.makeText(getApplicationContext(), "최소한 1개의 영역은 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    // 최소 2개의 영역에는 값이 있어야 함
+                    Toast.makeText(getApplicationContext(), "영역 1, 2의 텍스트를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                } else if(EditText_vocaModify_vocagroupArea1Input.getText().toString().isEmpty() ||
+                        EditText_vocaModify_vocagroupArea2Input.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "영역 1, 2의 텍스트를 입력해주세요.", Toast.LENGTH_SHORT).show();
+
                 } else {
                     // 1개 이상의 영역에 값이 있는 경우 데이터 저장됨
 
