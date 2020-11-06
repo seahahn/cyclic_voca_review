@@ -1,4 +1,8 @@
 package com.seahahn.cyclicvocareview;
+import android.graphics.Rect;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
+import android.content.Context;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -117,9 +121,6 @@ public class VocaLearningCycleModify extends AppCompatActivity {
                     }
                 }
 
-                System.out.println("vocaLearningCycleArea.toString() : "+vocaLearningCycleArea.toString());
-//                vocaLearningCycleArea.get(i).getEditText_vocaLearningCycle_vocaLearningCycleAreaInput()
-
                 if(EditText_vocaLearningCycleModify_vocaLearningCycleNameInput.getText().toString().isEmpty()) {
                     // 학습 주기 이름을 입력하지 않았을 경우
                     Toast.makeText(getApplicationContext(), "학습 주기 이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
@@ -140,7 +141,6 @@ public class VocaLearningCycleModify extends AppCompatActivity {
                             EditText_vocaLearningCycleModify_vocaLearningCycleArea2Input.getText().toString(),
                             vocaLearningCycleAreaAdapter.getData());
 
-//                    SharedPreferences sharedPreferences = getSharedPreferences("VocaLearningCycle", MODE_PRIVATE);
                     SharedPreferences sharedPreferences = getSharedPreferences(userID, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     Gson gson = new Gson();
@@ -157,5 +157,24 @@ public class VocaLearningCycleModify extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 }

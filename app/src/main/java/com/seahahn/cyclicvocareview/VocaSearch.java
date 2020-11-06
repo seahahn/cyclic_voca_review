@@ -1,4 +1,8 @@
 package com.seahahn.cyclicvocareview;
+import android.graphics.Rect;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
+import android.content.Context;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
@@ -48,19 +52,28 @@ public class VocaSearch extends AppCompatActivity {
     String filterNone;
     int filterVocaCycle;
 
+    boolean fromVocaShow = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voca_search);
+
+        Intent intent = getIntent();
+        fromVocaShow = intent.getBooleanExtra("fromVocaShow", false);
 
         // 화면 좌측 상단 좌향 화살표 이미지버튼 - 뒤로가기 기능
         ImageButton_vocaSearch_goback = findViewById(R.id.ImageButton_vocaSearch_goback);
         ImageButton_vocaSearch_goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VocaSearch.this, MainActivity.class);
-                startActivity(intent);
-//                finish();
+                if(fromVocaShow){
+                    Intent intent = new Intent(VocaSearch.this, VocaShow.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(VocaSearch.this, MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -78,17 +91,12 @@ public class VocaSearch extends AppCompatActivity {
         ListView_vocaSearch_listView = findViewById(R.id.ListView_vocaSearch_listView);
         ListView_vocaSearch_listView.setLayoutManager(linearLayoutManager);
 
-
-        // 리스트를 생성한다.
-//        list = new ArrayList<String>();
-
         // 검색에 사용할 데이터을 미리 저장한다.
         settingList();
 
         // 리스트의 모든 데이터를 arraylist에 복사한다.// list 복사본을 만든다.
         arraylist = new ArrayList<>();
         arraylist.addAll(list);
-//        Log.d(TAG, "arraylist : "+arraylist);
 
         // 리사이클러뷰에 아답터를 연결한다.
         ListView_vocaSearch_listView.setAdapter(vocaSearchAdapter);
@@ -186,7 +194,6 @@ public class VocaSearch extends AppCompatActivity {
                     vocaList = gson.fromJson(vocaListJson, vocaListType);
                 }
                 vocaListTotal.addAll(vocaList);
-                Log.d(TAG, "단어장 이름");
             }else if(filter.equals(filterWrongVoca)){
                 // 필터로 '틀린 단어' 선택한 경우
                 String vocagroupName = vocagroupList.get(i).getVocagroupName()+" vocagroupName";
@@ -201,7 +208,6 @@ public class VocaSearch extends AppCompatActivity {
                         vocaListTotal.add(vocaList.get(j));
                     }
                 }
-                Log.d(TAG, "틀린 단어");
             } else if(filter.equals(filterNewVoca)){
                 // 필터로 '새 단어' 선택한 경우
                 String vocagroupName = vocagroupList.get(i).getVocagroupName()+" vocagroupName";
@@ -214,7 +220,6 @@ public class VocaSearch extends AppCompatActivity {
                 for(int j = 0; j < vocaList.size(); j++){
                     if(vocaList.get(j).get(1).getAddedDate().equals(String.valueOf(filterVocaCycle))){
                         vocaListTotal.add(vocaList.get(j));
-                        Log.d(TAG, "새 단어");
                     }
                 }
             } else if(filter.equals(filterReviewVoca)){
@@ -230,7 +235,6 @@ public class VocaSearch extends AppCompatActivity {
                     if(vocaList.get(j).get(1).getAddedDate().equals(String.valueOf(filterVocaCycle))
                     || Integer.parseInt(vocaList.get(j).get(1).getAddedDate()) > 0){
                         vocaListTotal.add(vocaList.get(j));
-                        Log.d(TAG, "복습할 단어");
                     }
                 }
             } else if(filter.equals(filterNone)){
@@ -244,9 +248,27 @@ public class VocaSearch extends AppCompatActivity {
                     vocaList = gson.fromJson(vocaListJson, vocaListType);
                 }
                 vocaListTotal.addAll(vocaList);
-                Log.d(TAG, "필터 없음");
             }
         }
         list.addAll(vocaListTotal);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 }

@@ -1,7 +1,11 @@
 package com.seahahn.cyclicvocareview;
 
+import android.content.Context;
+import android.graphics.Rect;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -45,24 +49,7 @@ public class SettingAccountFindpassword extends AppCompatActivity {
         Button_settingAccountFindpassword_sendPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(SettingAccountFindpassword.this, R.string.sendtemppasswordMessage, Toast.LENGTH_SHORT).show();
-
-//                try {
-//                    GMailSender gMailSender = new GMailSender("seah.ahn.nt@gmail.com", "password1234");
-//                    //GMailSender.sendMail(제목, 본문내용, 받는사람);
-//                    gMailSender.sendMail(getString(R.string.sendtemppasswordMailTitle),
-//                            getString(R.string.sendtemppasswordMailText1) + accountList.get(EditText_settingAccountFindpassword_emailInput.getText().toString()) + getString(R.string.sendtemppasswordMailText2),
-//                            EditText_settingAccountFindpassword_emailInput.getText().toString());
-//                    Toast.makeText(getApplicationContext(), "이메일을 성공적으로 보냈습니다.", Toast.LENGTH_SHORT).show();
-//                } catch (SendFailedException e) {
-//                    Toast.makeText(getApplicationContext(), "이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
-//                } catch (MessagingException e) {
-//                    Toast.makeText(getApplicationContext(), "인터넷 연결을 확인해주십시오", Toast.LENGTH_SHORT).show();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
                 email = EditText_settingAccountFindpassword_emailInput.getText().toString();
-                Log.d(TAG, email);
 
                 mAuth = FirebaseAuth.getInstance();
                 mAuth.sendPasswordResetEmail(email).addOnCompleteListener(SettingAccountFindpassword.this, new OnCompleteListener<Void>() {
@@ -76,5 +63,24 @@ public class SettingAccountFindpassword extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 }

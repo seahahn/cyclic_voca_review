@@ -1,4 +1,9 @@
 package com.seahahn.cyclicvocareview;
+import android.content.Context;
+import android.graphics.Rect;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import android.app.AlertDialog;
@@ -17,12 +22,13 @@ import static java.lang.String.valueOf;
 
 public class SettingLearning extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "SettingLearning";
     ImageButton ImageButton_settingLearning_goback;
     Button Button_settingLearning_vocaOrder;
     Button Button_settingLearning_vocaLimit;
     Button Button_settingLearning_countLimit;
 
-    boolean newFirst = true;
+    String newFirst = "true";
     int newVocaLimit = 30;
     int reviewVocaLimit = 30;
     int timeCount = 5;
@@ -45,10 +51,20 @@ public class SettingLearning extends AppCompatActivity implements View.OnClickLi
         // 설정 전에 기존에 저장되어 있던 값들을 불러옴
         // 사용자가 설정하고자 하는 항목에 대하여 그에 맞는 값을 넣어주기 위해서
         SharedPreferences sharedPreferences = getSharedPreferences(userID, MODE_PRIVATE);
-        newFirst = sharedPreferences.getBoolean("newFirst", true);
-        newVocaLimit = sharedPreferences.getInt("newVocaLimit", 30);
-        reviewVocaLimit = sharedPreferences.getInt("reviewVocaLimit", 30);
-        timeCount = sharedPreferences.getInt("timeCount", 5);
+        newFirst = sharedPreferences.getString("newFirst", "true");
+        try{
+            newVocaLimit = Integer.parseInt(sharedPreferences.getString("newVocaLimit", String.valueOf(30)));
+            reviewVocaLimit = Integer.parseInt(sharedPreferences.getString("reviewVocaLimit", String.valueOf(30)));
+            timeCount = Integer.parseInt(sharedPreferences.getString("timeCount", String.valueOf(5)));
+        }catch(ClassCastException e){
+            newVocaLimit = sharedPreferences.getInt("newVocaLimit", 30);
+            reviewVocaLimit = sharedPreferences.getInt("reviewVocaLimit", 30);
+            timeCount = sharedPreferences.getInt("timeCount", 5);
+        }catch(NumberFormatException e){
+            newVocaLimit = (int)Double.parseDouble(sharedPreferences.getString("newVocaLimit", String.valueOf(30)));
+            reviewVocaLimit = (int)Double.parseDouble(sharedPreferences.getString("reviewVocaLimit", String.valueOf(30)));
+            timeCount = (int)Double.parseDouble(sharedPreferences.getString("timeCount", String.valueOf(5)));
+        }
     }
 
     @Override
@@ -66,7 +82,7 @@ public class SettingLearning extends AppCompatActivity implements View.OnClickLi
                 AlertDialog.Builder builder_vocaOrder = new AlertDialog.Builder(v.getContext());
                 builder_vocaOrder.setTitle("먼저 학습할 단어 유형 선택");
                 int checkedItem;
-                if(newFirst){
+                if(newFirst.equals("true")){
                     checkedItem = 0;
                 } else {
                     checkedItem = 1;
@@ -77,14 +93,14 @@ public class SettingLearning extends AppCompatActivity implements View.OnClickLi
                         switch (which) {
                             case 0:
                                 // 새 단어 먼저
-                                newFirst = true;
-                                editor.putBoolean("newFirst", true);
+                                newFirst = "true";
+                                editor.putString("newFirst", "true");
                                 editor.commit();
                                 break;
                             case 1:
                                 // 복습할 단어 먼저
-                                newFirst = false;
-                                editor.putBoolean("newFirst", false);
+                                newFirst = "false";
+                                editor.putString("newFirst", "false");
                                 editor.commit();
                                 break;
                             default:
@@ -95,7 +111,7 @@ public class SettingLearning extends AppCompatActivity implements View.OnClickLi
                 builder_vocaOrder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(newFirst){
+                        if(newFirst.equals("true")){
                             Toast.makeText(getApplicationContext(), "새 단어 먼저 학습",Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "복습할 단어 먼저 학습",Toast.LENGTH_SHORT).show();
@@ -143,8 +159,10 @@ public class SettingLearning extends AppCompatActivity implements View.OnClickLi
                     public void onClick(DialogInterface dialog, int which) {
                         newVocaLimit = Integer.parseInt(newVocaLimitInput.getText().toString());
                         reviewVocaLimit = Integer.parseInt(reviewVocaLimitInput.getText().toString());
-                        editor.putInt("newVocaLimit", Integer.parseInt(newVocaLimitInput.getText().toString()));
-                        editor.putInt("reviewVocaLimit", Integer.parseInt(reviewVocaLimitInput.getText().toString()));
+                        Log.d(TAG, "newVocaLimit : "+newVocaLimit);
+                        Log.d(TAG, "reviewVocaLimit : "+reviewVocaLimit);
+                        editor.putString("newVocaLimit", newVocaLimitInput.getText().toString());
+                        editor.putString("reviewVocaLimit", reviewVocaLimitInput.getText().toString());
                         editor.commit();
                         Toast.makeText(getApplicationContext(), "단어 갯수 설정되었습니다.",Toast.LENGTH_SHORT).show();
                     }
@@ -193,5 +211,24 @@ public class SettingLearning extends AppCompatActivity implements View.OnClickLi
             default:
                 break;
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 }

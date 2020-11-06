@@ -24,9 +24,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.seahahn.cyclicvocareview.MainActivity.userID;
+import static java.lang.Integer.valueOf;
 
 public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.VocaShowItemClickInterface, View.OnClickListener {
 
+    private static final String LEARNING_DONE = "Learning_Done";
+    private static final String NOT_YET_DONE = "Not_Yet_Done";
     final String TAG = "VocaShow";
     ImageButton ImageButton_vocaFront_goBack;
     ImageButton ImageButton_vocaFront_add;
@@ -78,7 +81,7 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
 
     boolean learningDay = false;
     boolean learningStart = false;
-    boolean newFirst = true;
+    String newFirst = "true";
 
     String vocagroupName;
     int vocagroupPosition;
@@ -92,6 +95,13 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
 //    VocaCountThread vocaCountThread;
     boolean threadOn;
     boolean onCreateAdding;
+    boolean todayAdding;
+    String todayAddingtime;
+    String todayLearningDone;
+
+    static final String NEWONE = Integer.toString(0);
+    static final String REVIEWONE = Integer.toString(-1);
+    static final String WRONGONE = Integer.toString(-2);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,10 +132,16 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
             vocaLearningCycleSequence.add(Integer.parseInt(vocaLearningCycle.getVocaLearningCycleAreaList().get(i).getEditText_vocaLearningCycle_vocaLearningCycleAreaInput()));
         }
 
-        newFirst = sharedPreferencesM.getBoolean("newFirst", true);
-        newVocaLimit = sharedPreferencesM.getInt("newVocaLimit", 30);
-        reviewVocaLimit = sharedPreferencesM.getInt("reviewVocaLimit", 30);
-        timeCount = sharedPreferencesM.getInt("timeCount", 5);
+        newFirst = sharedPreferencesM.getString("newFirst", "true");
+//        newVocaLimit = sharedPreferencesM.getInt("newVocaLimit", 30);
+//        reviewVocaLimit = sharedPreferencesM.getInt("reviewVocaLimit", 30);
+        try{
+            timeCount = Integer.parseInt(sharedPreferencesM.getString("timeCount", String.valueOf(5)));
+        }catch(ClassCastException e){
+            timeCount = sharedPreferencesM.getInt("timeCount", 5);
+        }catch(NumberFormatException e){
+            timeCount = (int)Double.parseDouble(sharedPreferencesM.getString("timeCount", String.valueOf(5)));
+        }
 
 
         // 상단 툴바 좌측 첫번째 이미지버튼 - 뒤로 가기(메인 액티비티로 돌아감)
@@ -168,6 +184,7 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(VocaShow.this, VocaSearch.class);
+                intent.putExtra("fromVocaShow", true);
                 startActivity(intent);
             }
         });
@@ -206,10 +223,47 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
         Date date = new Date(now);
         Date cycleDate = null;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm", new Locale("ko", "KR"));
-        String getTime = simpleDateFormat.format(date);
+        SimpleDateFormat forAddingFormat = new SimpleDateFormat("yyyy-MM-dd", new Locale("ko", "KR"));
+        Calendar calendar = Calendar.getInstance(new Locale("ko", "KR"));
+        Calendar calendarYesterday = Calendar.getInstance(new Locale("ko", "KR"));
+        calendar.setTime(date);
+        calendarYesterday.setTime(date);
+        calendarYesterday.add(Calendar.DATE, -1);
+        String getTime = forAddingFormat.format(calendar.getTime()); // 오늘 일자
+        String forAddingTime = forAddingFormat.format(calendarYesterday.getTime()); // 어제 일자
+
+
+        todayAddingtime = sharedPreferences.getString("todayAddingtime "+vocagroupName, forAddingTime);
+        todayLearningDone = sharedPreferences.getString("todayLearningDone", NOT_YET_DONE);
+//        if((todayAddingtime.equals(getTime) && todayLearningDone.equals(LEARNING_DONE))){
+        if((todayAddingtime.equals(getTime))){
+//            todayAdding = true;
+            try{
+                newVocaLimit = Integer.parseInt(sharedPreferencesM.getString("newVocaLimitToday"+vocagroupName, sharedPreferencesM.getString("newVocaLimit", String.valueOf(30))));
+                reviewVocaLimit = Integer.parseInt(sharedPreferencesM.getString("reviewVocaLimitToday"+vocagroupName, sharedPreferencesM.getString("reviewVocaLimit", String.valueOf(30))));
+            }catch(ClassCastException e){
+                newVocaLimit = sharedPreferencesM.getInt("newVocaLimitToday"+vocagroupName, sharedPreferencesM.getInt("newVocaLimit", 30));
+                reviewVocaLimit = sharedPreferencesM.getInt("reviewVocaLimitToday"+vocagroupName, sharedPreferencesM.getInt("reviewVocaLimit", 30));
+            }catch(NumberFormatException e){
+                newVocaLimit = (int)Double.parseDouble(sharedPreferencesM.getString("newVocaLimitToday"+vocagroupName, sharedPreferencesM.getString("newVocaLimit", String.valueOf(30))));
+                reviewVocaLimit = (int)Double.parseDouble(sharedPreferencesM.getString("reviewVocaLimitToday"+vocagroupName, sharedPreferencesM.getString("reviewVocaLimit", String.valueOf(30))));
+            }
+        } else {
+//            todayAdding = false;
+            try{
+                newVocaLimit = Integer.parseInt(sharedPreferencesM.getString("newVocaLimit", String.valueOf(30)));
+                reviewVocaLimit = Integer.parseInt(sharedPreferencesM.getString("reviewVocaLimit", String.valueOf(30)));
+            }catch(ClassCastException e){
+                newVocaLimit = sharedPreferencesM.getInt("newVocaLimit", 30);
+                reviewVocaLimit = sharedPreferencesM.getInt("reviewVocaLimit", 30);
+            }catch(NumberFormatException e){
+                newVocaLimit = (int)Double.parseDouble(sharedPreferencesM.getString("newVocaLimit", String.valueOf(30)));
+                reviewVocaLimit = (int)Double.parseDouble(sharedPreferencesM.getString("reviewVocaLimit", String.valueOf(30)));
+            }
+        }
 
 //        Calendar calendar = Calendar.getInstance();
-        if(vocaList != null && !vocaList.isEmpty()){
+        if(vocaList != null && !vocaList.isEmpty() && !todayAdding){
             for(int i = 0; i < vocaList.size(); i++){
                 try {
                     cycleDate = simpleDateFormat.parse(vocaList.get(i).get(0).getAddedDate());
@@ -237,7 +291,7 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
             }
 
             // 오늘 배울 새 단어, 복습할 단어들을 모두 todayLearningList에 사용자가 설정한 순서대로 추가해줌
-            if(newFirst){
+            if(newFirst.equals("true")){
                 // new 먼저
 
                 for(int i = 0; i < wrongVocaList.size(); i++){
@@ -341,6 +395,13 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
             // onCreate에서 단어 추가하면 true가 됨
             // 그러면 onResume에서 다시 한번 똑같은 단어를 중복해서 추가하지 않음
             onCreateAdding = true;
+            todayAdding = true;
+            SimpleDateFormat simpleDateformat = new SimpleDateFormat("yyyy-MM-dd", new Locale("ko", "KR")); // 현재 시각을 표현할 형식 결정
+            todayAddingtime = simpleDateformat.format(date); // 현재 시각을 simpleDateformat 형식에 맞추어 문자열로 바꿈
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("todayAddingtime "+vocagroupName, todayAddingtime); // 저장할 값 입력하기
+            editor.commit();
         }
 
         // 시간제한 초 출력할 횟수를 지정해주기 위해 학습할 단어 갯수를 가져옴
@@ -361,6 +422,10 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
         ImageButton_vocaFront_modify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(TextView_vocaFront_noWords.getVisibility() == 0){
+                    return;
+                }
+
                 Intent intent = new Intent(VocaShow.this, VocaModify.class);
 
                 // 사용자가 선택한 단어장 정보(제목, 영역 구성) 보내기
@@ -403,7 +468,6 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(getApplicationContext(), "VocaShow onResume",Toast.LENGTH_SHORT).show();
 
         threadOn = true;
 
@@ -428,7 +492,7 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm", new Locale("ko", "KR"));
         String getTime = format.format(date);
 
-        if(!onCreateAdding){
+        if(!onCreateAdding && !todayAdding){
             if(vocaList != null && !vocaList.isEmpty()){
                 for(int i = 0; i < vocaList.size(); i++){
                     try {
@@ -456,7 +520,7 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
                     }
                 }
                 // 오늘 배울 새 단어, 복습할 단어들을 모두 todayLearningList에 사용자가 설정한 순서대로 추가해줌
-                if(newFirst){
+                if(newFirst.equals("true")){
                     // new 먼저
 
                     for(int i = 0; i < wrongVocaList.size(); i++){
@@ -575,10 +639,18 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
                 reviewCount = Integer.toString(reviewCountNumber);
                 TextView_vocaFront_reviewCount.setText(reviewCount);
             }
+
+            todayAdding = true;
+            SimpleDateFormat simpleDateformat = new SimpleDateFormat("yyyy-MM-dd", new Locale("ko", "KR")); // 현재 시각을 표현할 형식 결정
+            todayAddingtime = simpleDateformat.format(date); // 현재 시각을 simpleDateformat 형식에 맞추어 문자열로 바꿈
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("todayAddingtime "+vocagroupName, todayAddingtime); // 저장할 값 입력하기
+            editor.commit();
         }
 
         // 시간제한 초 출력할 횟수를 지정해주기 위해 학습할 단어 갯수를 가져옴
-        vocaNumber = vocaShowing.size();
+        vocaNumber = todayLearningList.size();
 
         // 사용자가 선택한 단어장에 단어가 없으면 "학습할 단어가 없습니다. 단어를 추가해주세요." 문구가 출력됨
         TextView_vocaFront_noWords = findViewById(R.id.TextView_vocaFront_noWords);
@@ -596,7 +668,6 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
     @Override
     protected void onPause() {
         super.onPause();
-        Toast.makeText(this, "VocaShow onPause",Toast.LENGTH_LONG).show();
         timeCountThread.interrupt();
 //        vocaCountThread.interrupt();
     }
@@ -604,7 +675,6 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Toast.makeText(this, "VocaShow onDestroy",Toast.LENGTH_LONG).show();
         timeCountThread.interrupt();
         onCreateAdding = false;
 //        vocaCountThread.interrupt();
@@ -630,7 +700,6 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
 
                         Intent mIntent = new Intent(getApplicationContext(), VocaShowTextActionModePopup.class);
                         mIntent.putExtra("input", input);
-                        Log.d("input", input);
                         startActivity(mIntent);
 
                         return true;
@@ -681,29 +750,49 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
         int seq = 0; // 단어의 다음 학습 주기까지 걸릴 시간
         int nextSeq = 0; // 단어의 다음 학습 주기 순서
 
+        if (NEWONE.equals(vocaShowing.get(1).getAddedDate())) {
+            newVocaLimit--;
+            SharedPreferences sharedPreferences = getSharedPreferences(userID, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("newVocaLimitToday"+vocagroupName, String.valueOf(newVocaLimit)); // 저장할 값 입력하기
+            editor.commit();
+        } else if (REVIEWONE.equals(vocaShowing.get(1).getAddedDate())) {
+            reviewVocaLimit--;
+            SharedPreferences sharedPreferences = getSharedPreferences(userID, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("reviewVocaLimitToday"+vocagroupName, String.valueOf(reviewVocaLimit)); // 저장할 값 입력하기
+            editor.commit();
+        } else if (WRONGONE.equals(vocaShowing.get(1).getAddedDate())) {
+
+        } else {
+            reviewVocaLimit--;
+            SharedPreferences sharedPreferences = getSharedPreferences(userID, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("reviewVocaLimitToday"+vocagroupName, String.valueOf(reviewVocaLimit)); // 저장할 값 입력하기
+            editor.commit();
+        }
+
         switch (v.getId()) {
             case R.id.Button_vocaBack_dontknow: // 모름
-                Log.d(TAG, "vocaShowing 변경 전 : "+vocaShowing);
-                calendar.add(Calendar.MINUTE, 1);
+                calendar.add(Calendar.MINUTE, 0);
                 nextTime = format.format(calendar.getTime());
                 vocaShowing.get(0).setAddedDate(nextTime);
                 vocaShowing.get(1).setAddedDate(Integer.toString(-2)); // 틀린 것은 -2으로 지정해서 틀린 갯수 따로 세기
-                System.out.println(vocaShowing.get(0).getVocaShowText()+" / "+vocaShowing.get(0).getAddedDate());
 
                 for(int i = 0; i < vocaShowing.size(); i++){
                     vocaShowing.get(i).setShowingSide(!vocaShowing.get(i).isShowingSide());
                 }
 
                 vocaList.set(todayLearningListPosition.get(vocaOrder), vocaShowing);
-                Log.d(TAG, "vocaShowing 변경 후 : "+vocaShowing);
+
+                Toast.makeText(getApplicationContext(), vocaShowing.get(0).getAddedDate(),Toast.LENGTH_SHORT).show();
 
                 break;
             case R.id.Button_vocaBack_know: // 앎
-                Log.d(TAG, "vocaShowing 변경 전 : "+vocaShowing);
                 // vocaShowing.get(1).getAddedDate()에서 단어 학습 주기의 순서를 가져옴
                 if(Integer.parseInt(vocaShowing.get(1).getAddedDate()) < vocaLearningCycleSequence.size()){
                     // 가져온 순서의 값이 실제 단어 학습 주기의 주기 갯수 이하인 경우
-                    if(Integer.parseInt(vocaShowing.get(1).getAddedDate()) == -2){
+                    if(Integer.parseInt(vocaShowing.get(1).getAddedDate()) == -2 || Integer.parseInt(vocaShowing.get(1).getAddedDate()) == -1){
                         // '모름' 먼저 눌렀다가 '앎' 누른 경우
                         calendar.add(Calendar.MINUTE, 5); // 현재 시각 기준으로 다음에 학습할 시각 지정하기
                     } else {
@@ -729,11 +818,11 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
                     vocaShowing.get(i).setShowingSide(!vocaShowing.get(i).isShowingSide());
                 }
                 vocaList.set(todayLearningListPosition.get(vocaOrder), vocaShowing);
-                Log.d(TAG, "vocaShowing 변경 후 : "+vocaShowing);
+
+                Toast.makeText(getApplicationContext(), vocaShowing.get(0).getAddedDate(),Toast.LENGTH_SHORT).show();
 
                 break;
             case R.id.Button_vocaBack_completeknow: // 완전 앎
-                Log.d(TAG, "vocaShowing 변경 전 : "+vocaShowing);
                 // vocaShowing.get(1).getAddedDate()에서 단어 학습 주기의 순서를 가져옴
                 if(Integer.parseInt(vocaShowing.get(1).getAddedDate()) < vocaLearningCycleSequence.size()){
                     // 가져온 순서의 값이 실제 단어 학습 주기의 주기 갯수 이하인 경우
@@ -757,7 +846,8 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
                     vocaShowing.get(i).setShowingSide(!vocaShowing.get(i).isShowingSide());
                 }
                 vocaList.set(todayLearningListPosition.get(vocaOrder), vocaShowing);
-                Log.d(TAG, "vocaShowing 변경 후 : "+vocaShowing);
+
+                Toast.makeText(getApplicationContext(), vocaShowing.get(0).getAddedDate(),Toast.LENGTH_SHORT).show();
 
                 break;
             default:
@@ -814,12 +904,13 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
             // 다음 단어 학습할 경우
 //            sideChange();
             for(int i = 0 ; i < todayLearningList.get(vocaOrder).size(); i++){
-                Log.d(TAG, "onClick vocaShowing.set 변경 전 vocaList : "+vocaList);
                 vocaShowing.set(i, todayLearningList.get(vocaOrder).get(i)); // 다음 단어 데이터로 세팅
                 vocaList.set(todayLearningListPosition.get(vocaOrder-1), vocaShowingBefore); // 다음 단어 세팅할 시 vocaList에 있는 현재 단어 데이터를 덮어씌워버리므로, 따로 저장해둔 현재 단어 데이터를 다시 vocaList에 넣어서 덮어씌워진 데이터를 올바르게 만듦
-                Log.d(TAG, "onClick vocaShowing.set 변경 후 vocaList : "+vocaList);
                 vocaShowItemAdapter.notifyItemChanged(i);
             }
+
+            editor.putString("todayLearningDone", NOT_YET_DONE); // 저장할 값 입력하기
+            editor.commit();
 
         } else {
             // 모든 단어 학습 완료된 경우
@@ -828,6 +919,9 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
             vocaShowItemAdapter.notifyDataSetChanged();
             Toast.makeText(getApplicationContext(), "단어 학습 완료",Toast.LENGTH_SHORT).show();
             TextView_vocaFront_noWords.setVisibility(View.VISIBLE);
+
+            editor.putString("todayLearningDone", LEARNING_DONE); // 저장할 값 입력하기
+            editor.commit();
         }
         vocaNumber--; // 학습해야 하는 단어 숫자를 감소시킴
         timeCount = 5; // 우측 하단에 '완전 앎' 버튼 비활성화까지 남은 시각 초기화
@@ -867,11 +961,10 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
     boolean countRefresh;
 
     private class TimeCountThread extends Thread {
-
         @Override
         public void run() {
             while(vocaNumber != 0 && threadOn){
-                if(timeCount > 0){
+                if(timeCount >= 0){
                     TimeCountRefresh:
                     for(int i=0; i<5; i++){
                         timeCounting = true;
@@ -882,20 +975,27 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
                         } catch (InterruptedException e) {
                             if(countRefresh){
                                 countRefresh = false;
+                                Log.d(TAG, "countRefresh 스레드 중지");
                                 continue TimeCountRefresh;
+
+                            } else {
+                                threadOn = false;
+                                Log.d(TAG, "countRefresh else 스레드 중지");
                             }
-                            threadOn = false;
                         }
                     }
+                    Log.d(TAG, "timeCounting 스레드 중지");
                     timeCounting = false;
-                }
-                try {
-                    sleep(1000);
-                } catch (InterruptedException e) {
-                    threadOn = false;
-                    Log.d(TAG, "TimeCountThread 중지됨");
+                } else {
+                    try {
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        threadOn = false;
+                        Log.d(TAG, "카운트 끝 스레드 중지");
+                    }
                 }
             }
+            Log.d(TAG, "스레드 중지");
         }
     }
 
@@ -922,38 +1022,10 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
         public void run() {
             while(threadOn){
                 if(vocaList != null && !vocaList.isEmpty()){
-//            Log.d(TAG, "onCreate 단어 세팅 여부 확인");
-//                    for(int i = 0; i < vocaList.size(); i++){
-//                        try {
-//                            cycleDate = format.parse(vocaList.get(i).get(0).getAddedDate());
-//                        } catch (ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//                        learningDay = vocaList.get(i).get(0).getAddedDate().equals(getTime) | cycleDate.before(date);
-//                Log.d(TAG, "learningDay 테스트 : "+vocaList.get(i).get(0).getAddedDate().equals(getTime)+" / "+cycleDate.before(date));
-
-//                        if(learningDay){
-//                            todayLearningList.add(vocaList.get(i));
-//                            todayLearningListPosition.add(i);
-//                        }
-//                    }
-
-//                    if(!learningStart){
-////                Log.d(TAG, "todayLearningList : "+todayLearningList);
-//                        if(todayLearningList != null && !todayLearningList.isEmpty()){
-//                            for(int a = 0; a < todayLearningList.get(0).size(); a++){
-//                                vocaShowing.add(todayLearningList.get(0).get(a));
-////                        Log.d(TAG, "todayLearningList.get(0).get(a) : "+todayLearningList.get(0).get(a));
-//                                learningStart = true;
-//                            }
-//                        }
-//                    }
-
                     // 틀린 단어 수, 새 단어 수, 복습할 단어 수 세기 세기
                     wrongCountNumber = 0;
                     newCountNumber = 0;
                     reviewCountNumber = 0;
-//                    Log.d(TAG, "단어 숫자 확인 : "+wrongCountNumber+" / "+newCountNumber+" / "+reviewCountNumber);
                     for(int i = 0; i < todayLearningList.size(); i++){
                         if(Integer.parseInt(todayLearningList.get(i).get(1).getAddedDate()) == -1){
                             wrongCountNumber++;
@@ -963,17 +1035,10 @@ public class VocaShow extends AppCompatActivity implements VocaShowItemAdapter.V
                             reviewCountNumber++;
                         }
                     }
-//                    Log.d(TAG, "단어 숫자 확인 : "+wrongCountNumber+" / "+newCountNumber+" / "+reviewCountNumber);
                     newCount = Integer.toString(newCountNumber);
                     wrongCount = Integer.toString(wrongCountNumber);
                     reviewCount = Integer.toString(reviewCountNumber);
-//                    TextView_vocaFront_newCount.setText(newCount);
-//                    TextView_vocaFront_wrongCount.setText(wrongCount);
-//                    TextView_vocaFront_reviewCount.setText(reviewCount);
 
-                    // onCreate에서 단어 추가하면 true가 됨
-                    // 그러면 onResume에서 다시 한번 똑같은 단어를 중복해서 추가하지 않음
-//                    onCreateAdding = true;
                 }
                 vocaCountHandler.sendEmptyMessage(1);
                 try {

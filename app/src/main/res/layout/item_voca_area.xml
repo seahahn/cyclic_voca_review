@@ -84,7 +84,6 @@
                 android:text=""
                 android:ems="10"
                 android:imeOptions="actionDone"
-                android:cursorVisible="false"
                 android:id="@+id/EditText_vocaAdd_vocaAreaInput"
                 app:layout_constraintTop_toBottomOf="@+id/TextView_vocaAdd_vocaArea"
                 app:layout_constraintStart_toStartOf="parent"

@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Voca Cyclic Review"
+rootProject.name = "Cyclic Voca Review"

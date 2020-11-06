@@ -1,4 +1,8 @@
 package com.seahahn.cyclicvocareview;
+import android.graphics.Rect;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
+import android.content.Context;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -135,70 +139,6 @@ public class VocaModify extends AppCompatActivity {
             }
         });
 
-//        // 상단 두번째 툴바 B 모양 텍스트뷰 - 텍스트 블럭 지정 후 누르면 선택한 텍스트의 글씨체 굵게(Bold) 만들어주는 기능
-//        TextView_vocaModify_textBold = findViewById(R.id.TextView_vocaModify_textBold);
-//        TextView_vocaModify_textBold.setClickable(true);
-//        TextView_vocaModify_textBold.setOnClickListener(new View.OnClickListener() {
-//            boolean textBold;
-//            @Override
-//            public void onClick(View v) {
-//                if(!textBold){
-////                    EditText_vocaModify_vocagroupArea1Input.setPaintFlags(EditText_vocaModify_vocagroupArea1Input.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
-//                    EditText_vocaModify_vocagroupArea1Input.setTypeface(null, Typeface.BOLD);
-//                    textBold = true;
-//                } else {
-////                    EditText_vocaModify_vocagroupArea1Input.setPaintFlags(EditText_vocaModify_vocagroupArea1Input.getPaintFlags() &~ Paint.FAKE_BOLD_TEXT_FLAG);
-//                    EditText_vocaModify_vocagroupArea1Input.setTypeface(null, Typeface.NORMAL);
-//                    textBold = false;
-//                }
-//            }
-//        });
-//
-//        // 상단 두번째 툴바 기울어진 I 모양 텍스트뷰 - 텍스트 블럭 지정 후 누르면 선택한 텍스트의 글씨체 기울임(Italic체) 만들어주는 기능
-//        TextView_vocaModify_textItalic = findViewById(R.id.TextView_vocaModify_textItalic);
-//        TextView_vocaModify_textItalic.setClickable(true);
-//        TextView_vocaModify_textItalic.setOnClickListener(new View.OnClickListener() {
-//            boolean textItalic;
-//            @Override
-//            public void onClick(View v) {
-//                if(!textItalic){
-//                    EditText_vocaModify_vocagroupArea1Input.setTypeface(null, Typeface.ITALIC);
-//                    textItalic = true;
-//                } else {
-//                    EditText_vocaModify_vocagroupArea1Input.setTypeface(null, Typeface.NORMAL);
-//                    textItalic = false;
-//                }
-//            }
-//        });
-
-        
-
-//        // 상단 두번째 툴바 가운데 카메라 모양 이미지버튼 - 카메라 불러오기 기능. 사진 찍으면 찍은 이미지 가져와서 추가함
-//        ImageButton_vocaModify_camera = findViewById(R.id.ImageButton_vocaModify_camera);
-//        ImageButton_vocaModify_camera.setClickable(true);
-//        ImageButton_vocaModify_camera.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                requestImage(VocaModify.this);
-//                dispatchTakePictureIntent();
-//            }
-//        });
-
-//        // 상단 두번째 툴바 그림 모양 이미지버튼 - 갤러리에서 이미지 불러오기 기능. 가져온 이미지는 레이아웃 최하단에 추가됨
-//        ImageButton_vocaModify_gallery = findViewById(R.id.ImageButton_vocaModify_gallery);
-//        ImageButton_vocaModify_gallery.setClickable(true);
-//        ImageButton_vocaModify_gallery.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setType("image/*");
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                startActivityForResult(intent, REQUEST_PICTURE);
-//            }
-//        });
-
-//        permissionCheck();
-
         // 두 번째 영역 밑의 추가 영역 출력하는 리사이클러뷰와 어댑터, 레이아웃 매니저 초기화
         ListView_vocaModify_listview = findViewById(R.id.ListView_vocaModify_listview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -233,11 +173,7 @@ public class VocaModify extends AppCompatActivity {
         ImageView_vocaModify_imageView2.setImageBitmap(BitmapFactory.decodeFile(voca.get(1).getImage()));
         ImageView_vocaModify_imageView1.setTag(voca.get(0).getImage());
         ImageView_vocaModify_imageView2.setTag(voca.get(1).getImage());
-//        Log.d(TAG, "voca.get(0).getImage() "+voca.get(0).getImage());
-//        Log.d(TAG, "voca.get(1).getImage() "+voca.get(1).getImage());
-//        Log.d(TAG, "(String)ImageView_vocaModify_imageView1.getTag() : "+(String)ImageView_vocaModify_imageView1.getTag());
-//        Log.d(TAG, "(String)ImageView_vocaModify_imageView2.getTag() : "+(String)ImageView_vocaModify_imageView2.getTag());
-//        vocaArea.addAll();
+
         for(int i = 0; i < vocagroup.getVocagroupAreaList().size(); i++){
             // 추가 영역 쪽 값 세팅
             // 텍스트와 이미지의 경우, voca 자체가 ArrayList이므로 추가 영역에 해당하는 포지션인 2부터 값 넣도록 만듦
@@ -246,7 +182,6 @@ public class VocaModify extends AppCompatActivity {
             vocaAreaAdapter.notifyItemInserted(i);
             vocaAreaAdapter.setItem(i, vocaArea, voca.get(i+2).getVocaShowText(), voca.get(i+2).getImage());
             vocaAreaAdapter.notifyItemChanged(i);
-//            Log.d("vocaModify addItem", i+" 스위치 값 제대로 들어가는지 확인-> "+vocagroup.getVocagroupAreaList().get(i).isSwitch_vocagroupAdd_areaSwitch());
         }
 
         // 이미지 추가 버튼에 카메라, 갤러리 호출하는 기능 부여
@@ -690,7 +625,7 @@ public class VocaModify extends AppCompatActivity {
             }catch(IOException e){
             }
             if (photoFile != null){
-                Uri photoURI = FileProvider.getUriForFile(this, "com.seahahn.vocacyclicreview.fileprovider", photoFile);
+                Uri photoURI = FileProvider.getUriForFile(this, "com.seahahn.cyclicvocareview.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, requestCode);
             }
@@ -710,13 +645,11 @@ public class VocaModify extends AppCompatActivity {
             }catch(IOException e){
             }
             if (photoFile != null){
-                Uri photoURI = FileProvider.getUriForFile(this, "com.seahahn.vocacyclicreview.fileprovider", photoFile);
+                Uri photoURI = FileProvider.getUriForFile(this, "com.seahahn.cyclicvocareview.fileprovider", photoFile);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(intent, requestCode);
             }
 //        }
-
-//        startActivityForResult(intent, requestCode);
     }
 
     @Override
@@ -731,5 +664,24 @@ public class VocaModify extends AppCompatActivity {
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 }

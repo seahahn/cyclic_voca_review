@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
-<!--    <external-files-path name="my_images" path="Android/data/com.example.vocacyclicreview/files/Pictures" />-->
+<!--    <external-files-path name="my_images" path="Android/data/com.example.cyclicvocareview/files/Pictures" />-->
 
 
     <external-path
             name="external"
-            path="Android/data/com.seahahn.vocacyclicreview/files/Pictures" />
+            path="Android/data/com.seahahn.cyclicvocareview/files/Pictures" />
     <external-files-path
             name="external_files"
-            path="Android/data/com.seahahn.vocacyclicreview/files/Pictures" />
+            path="Android/data/com.seahahn.cyclicvocareview/files/Pictures" />
     <cache-path
             name="cache"
-            path="Android/data/com.seahahn.vocacyclicreview/files/Pictures" />
+            path="Android/data/com.seahahn.cyclicvocareview/files/Pictures" />
     <external-cache-path
             name="external_cache"
-            path="Android/data/com.seahahn.vocacyclicreview/files/Pictures" />
+            path="Android/data/com.seahahn.cyclicvocareview/files/Pictures" />
     <files-path
             name="files"
-            path="Android/data/com.seahahn.vocacyclicreview/files/Pictures" />
+            path="Android/data/com.seahahn.cyclicvocareview/files/Pictures" />
 </paths>

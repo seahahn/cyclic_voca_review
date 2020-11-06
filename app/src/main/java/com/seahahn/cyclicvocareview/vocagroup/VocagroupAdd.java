@@ -1,4 +1,6 @@
 package com.seahahn.cyclicvocareview.vocagroup;
+import android.graphics.Rect;
+import android.view.MotionEvent;
 import android.widget.Toast;
 
 import android.content.SharedPreferences;
@@ -59,7 +61,6 @@ public class VocagroupAdd extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vocagroup_add);
-        Log.d("VocagroupAdd onCreate", "단어장 추가 액티비티 onCreate 실행");
 
         // 뒤로 가기 버튼 기능 구현
         ImageButton_vocagroupAdd_goback = findViewById(R.id.ImageButton_vocagroupAdd_goback);
@@ -185,7 +186,6 @@ public class VocagroupAdd extends AppCompatActivity {
                             Switch_vocagroupAdd_area1Switch.isChecked(), Switch_vocagroupAdd_area2Switch.isChecked(),
                             vocagroupAreaAdapter.getData());
                     // Spinner_vocagroupAdd_vocagroupCycle.getSelectedItem().toString(),
-                    Log.d(TAG, "vocaLearningCycleName : "+vocaLearningCycleName);
 
 //                    Date date = new Date();
 //                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd_HH:mm");
@@ -222,5 +222,24 @@ public class VocagroupAdd extends AppCompatActivity {
         EditText_vocagroupAdd_vocagroupNameInputString = savedInstanceState.getString("groupname"); // 단어장 제목 텍스트 임시 저장한 것 불러오기
 
         EditText_vocagroupAdd_vocagroupNameInput.setText(EditText_vocagroupAdd_vocagroupNameInputString);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 }

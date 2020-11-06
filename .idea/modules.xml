@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Voca_Cyclic_Review.iml" filepath="$PROJECT_DIR$/.idea/modules/Voca_Cyclic_Review.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Voca_Cyclic_Review.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Voca_Cyclic_Review.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cyclic_Voca_Review.iml" filepath="$PROJECT_DIR$/.idea/modules/Cyclic_Voca_Review.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Cyclic_Voca_Review.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Cyclic_Voca_Review.app.iml" />
     </modules>
   </component>
 </project>

@@ -1,5 +1,7 @@
 package com.seahahn.cyclicvocareview.vocagroup;
+import android.graphics.Rect;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.Toast;
 
 import android.content.Context;
@@ -141,8 +143,6 @@ public class VocagroupModify extends AppCompatActivity {
         Switch_vocagroupModify_area1Switch.setChecked(vocagroup.isVocagroupAreaSwitch1());
         Switch_vocagroupModify_area2Switch.setChecked(vocagroup.isVocagroupAreaSwitch2());
         vocagroupArea.addAll(vocagroup.getVocagroupAreaList());
-        System.out.println("getVocagroupAreaList 결과 : "+vocagroup.getVocagroupAreaList());
-        System.out.println("size는 "+vocagroup.getVocagroupAreaList().size());
         for(int i=0; i < vocagroup.getVocagroupAreaList().size(); i++){
             vocagroupAreaAdapter.setItem(i, vocagroupArea, vocagroup.getVocagroupAreaList().get(i));
             vocagroupAreaAdapter.notifyItemChanged(i);
@@ -200,10 +200,8 @@ public class VocagroupModify extends AppCompatActivity {
                     // 단어장 제목이 기존에 있는 단어장의 제목과 동일한 경우
                     Toast.makeText(getApplicationContext(), "동일한 제목의 단어장이 있습니다.\n다른 제목을 입력해주세요.", Toast.LENGTH_SHORT).show();
 
-                } else if ((Switch_vocagroupModify_area1Switch.isChecked() == Switch_vocagroupModify_area2Switch.isChecked())
-                        && (vocagroupSideCheck == vocagroupAreaAdapter.getData().size() || vocagroupSideCheck == -vocagroupAreaAdapter.getData().size())){
-                    // 모든 영역의 스위치(앞/뒤 방향)이 동일한 경우
-                    Toast.makeText(getApplicationContext(), "모든 영역의 방향이 같습니다.\n최소 1개의 영역은 다르게 설정해주세요.",Toast.LENGTH_SHORT).show();
+                } else if(Switch_vocagroupModify_area1Switch.isChecked() == Switch_vocagroupModify_area2Switch.isChecked()){
+                    Toast.makeText(getApplicationContext(), "영역 1과 2의 앞/뒤 방향을 다르게 설정해주세요.", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Vocagroup vocagroup = new Vocagroup(EditText_vocagroupModify_vocagroupNameInput.getText().toString(),
@@ -227,7 +225,6 @@ public class VocagroupModify extends AppCompatActivity {
 
                     String vocagroupName = EditText_vocagroupModify_vocagroupNameInput.getText().toString() + " vocagroupName"; // 수정된 단어장 제목
                     String vocagroupJsonSave = gson.toJson(vocagroup); // 수정된 단어장 데이터
-                    Log.d(TAG, vocagroupJsonSave);
                     editor.putString(vocagroupName, vocagroupJsonSave); // 수정된 단어장 제목을 Key로 하여 수정된 단어장 데이터 저장함
 
                     String vocaListJsonM = gson.toJson(vocaList); // 단어 목록을 gson String 형태로 변환
@@ -246,10 +243,22 @@ public class VocagroupModify extends AppCompatActivity {
         });
     }
 
-    public void modifySet(Context context, int position, Vocagroup vocagroup){
-        String vocagroupName = vocagroup.getVocagroupName();
-        String vocagroupArea1 = vocagroup.getVocagroupArea1();
-        String vocagroupArea2 = vocagroup.getVocagroupArea2();
-        ArrayList<VocagroupArea> vocagroupAreaList = vocagroup.getVocagroupAreaList();
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 }

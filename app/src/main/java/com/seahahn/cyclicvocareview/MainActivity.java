@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton ImageButton_main_help;
     ImageButton ImageButton_main_search;
     ImageButton ImageButton_main_setting;
-    Button Button_main_profiles;
+    TextView TextView_main_profiles;
     Button Button_main_vocagroupmanage;
     Button Button_main_vocaupload;
 
@@ -69,30 +69,49 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    boolean accountDelete = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        accountDelete = intent.getBooleanExtra("accountDelete", false);
+
         mAuth = FirebaseAuth.getInstance(); // 파이어베이스 인증 객체 초기화
         FirebaseUser user = mAuth.getCurrentUser();
-        if(user == null){
-            userID = "default";
-            userEmail = "default";
+
+        if (user != null) {
+            String test = user.getProviderData().get(1).getProviderId();
+            Log.d(TAG, "test : "+test);
+        }
+
+        int i = 0;
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                // Id of the provider (ex: google.com)
+                String providerId = profile.getProviderId();
+                Log.d(TAG, "providerId : "+providerId+" "+i);
+                i++;
+            }
+        }
+
+
+        if(user == null || accountDelete){
+            userID = "Default";
+            userEmail = "No Login";
         } else {
             userID = user.getUid();
             userEmail = user.getEmail();
         }
 
+        // 현재 로그인된 사용자 보여주기
+        TextView_main_profiles = findViewById(R.id.TextView_main_profiles);
+        TextView_main_profiles.setText(userEmail);
+
         vocagroupAdapter.notifyDataSetChanged();
-
-//        permissionCheck();
-
-//        // 인터넷 사용 권한 허용
-//        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-//                .permitDiskReads()
-//                .permitDiskWrites()
-//                .permitNetwork().build());
 
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if(permissionCheck == PackageManager.PERMISSION_DENIED){
@@ -110,15 +129,13 @@ public class MainActivity extends AppCompatActivity {
             TedPermission.with(this)
                     .setPermissionListener(permissionlistener)
                     .setRationaleMessage("엑셀 파일을 이용한 단어 업로드를 위해서 파일 읽기/쓰기 권한이 필요해요.")
-                    .setDeniedMessage("단어 추가...편하게 하시지...\n나중에 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
+                    .setDeniedMessage("나중에 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
                     .setPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE,
                             Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA})
                     .check();
         }else{
 //            // 권한 있음
         }
-
-
 
         // 도움말 버튼 세팅
         ImageButton_main_help = findViewById(R.id.ImageButton_main_help);
@@ -204,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // 단어 업로드 버튼 세팅
+        // 백업 버튼 세팅
         Button_main_vocaupload = findViewById(R.id.Button_main_vocaupload);
         Button_main_vocaupload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -270,18 +287,15 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(userID, MODE_PRIVATE);
         Gson gson = new Gson();
         String vocagroupListJson = sharedPreferences.getString("VocagroupList", null);
-        Log.d(TAG, "vocagroupListJson : "+vocagroupListJson);
         Type vocagroupListType = new TypeToken<ArrayList<Vocagroup>>(){}.getType();
         if(gson.fromJson(vocagroupListJson, vocagroupListType) != null && gson.fromJson(vocagroupListJson, vocagroupListType).toString().length() >2){
             vocagroupList = gson.fromJson(vocagroupListJson, vocagroupListType); // 기존에 저장된 단어장 있으면 데이터 가져옴
-            Log.d(TAG, "vocagroupList : "+vocagroupList);
         } else {
             vocagroupAdapter.removeAll(vocagroupList);
         }
         if(vocagroupList != null) {
             if (vocagroupList.size() > 0) {
                 vocagroupAdapter.setData(vocagroupList);
-//                Log.d(TAG, "vocagroupAdapter : "+vocagroupAdapter.getData());
             } else {
                 vocagroupAdapter.removeAll(vocagroupList);
             }
@@ -297,7 +311,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String vocagroupListJson = gson.toJson(vocagroupAdapter.getData());
-        Log.d(TAG, "vocagroupListJson onPause : "+vocagroupListJson);
         editor.putString("VocagroupList", vocagroupListJson); // 저장할 값 입력하기
         editor.commit();
     }
@@ -306,9 +319,7 @@ public class MainActivity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if(checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
                     && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-//                Log.d("권한 설정", "완료");
             } else {
-//                Log.d("권한 설정", "요청");
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
@@ -321,7 +332,8 @@ public class MainActivity extends AppCompatActivity {
 
         boolean fromBackup = false;
         // 백업으로 파일 불러온 경우에는 true로 바뀜
-        // 이를 통해 빈 단어장 목록 혹은 기존에 있던 단어장 목록으로 다시 돌아오는 것을 방지함함
+        // 이를 통해 빈 단어장 목록 혹은 기존에 있던 단어장 목록으로 다시 돌아오는 것을 방지함
+
         // 단어장 추가 요청 시 결과 받는 부분
         if (requestCode == REQUEST_VOCAGROUP_ADD && resultCode == RESULT_OK) {
             assert data != null;
@@ -341,18 +353,14 @@ public class MainActivity extends AppCompatActivity {
 
             assert data != null;
             String vocagroupName = data.getStringExtra("vocagroupName");
-            Log.d(TAG, "vocagroupName onResult : "+vocagroupName);
             int vocagroupPosition = data.getIntExtra("단어장 포지션", -1);
 
             SharedPreferences sharedPreferences = getSharedPreferences(userID, MODE_PRIVATE);
             Gson gson = new Gson();
             String vocagroupJsonLoad = sharedPreferences.getString(vocagroupName, null);
-            Log.d(TAG, "vocagroupJsonLoad onResult : "+vocagroupJsonLoad);
             Vocagroup vocagroup = gson.fromJson(vocagroupJsonLoad, Vocagroup.class);
-            Log.d(TAG, "vocagroup onResult : "+vocagroup);
             vocagroupList.set(vocagroupPosition, vocagroup);
             vocagroupAdapter.notifyDataSetChanged();
-            Log.d(TAG, "vocagroupList onResult : "+vocagroupList);
         } else if (requestCode == REQUEST_VOCAGROUP_MODIFY && resultCode == RESULT_CANCELED) {
             Toast.makeText(this, "단어장 수정 취소", Toast.LENGTH_SHORT).show();
         }
@@ -442,10 +450,8 @@ public class MainActivity extends AppCompatActivity {
                                 voca.set(i+2, new VocaShowItem(vocaAreaAdapter.getItemSide(i), vocaEachArea.get(i+2), null, null, null));
                             }
                             vocaList.add(voca);
-//                            Log.d(TAG, "vocaList : "+vocaList);
                             vocaEachArea.clear();
 //                            voca.clear();
-//                            Log.d(TAG, "vocaList : "+vocaList);
                         }
                     }
                 }
@@ -510,7 +516,6 @@ public class MainActivity extends AppCompatActivity {
                 fromBackup = true;
 
                 String test = sharedPreferences.getString("VocagroupList", null);
-//                Log.d(TAG, "vocagroupListJson : "+test);
 
                 Toast.makeText(getApplicationContext(), "백업 파일 불러오기 완료", Toast.LENGTH_LONG).show();
             } catch (FileNotFoundException e) {
@@ -531,8 +536,6 @@ public class MainActivity extends AppCompatActivity {
             String vocagroupListJson = gson.toJson(vocagroupAdapter.getData());
             editor.putString("VocagroupList", vocagroupListJson); // 저장할 값 입력하기
             editor.commit();
-
-//            Log.d(TAG, "vocagroupListJson : "+vocagroupListJson);
         }
         fromBackup = false;
 
@@ -555,7 +558,6 @@ public class MainActivity extends AppCompatActivity {
         try {
             pfd = this.getContentResolver().openFileDescriptor(uri, "w");
             fileInputStream = new FileInputStream(pfd.getFileDescriptor());
-//            Log.d(TAG, "fileInputStream : "+fileInputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -567,7 +569,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void readString() throws IOException {
         if(fileInputStream!=null) fileInputStream.read();
-//        Log.d(TAG, "fileInputStream : "+fileInputStream);
     }
 
     public void FinishRecord() throws IOException {

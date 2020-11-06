@@ -48,20 +48,16 @@ public class Setting extends AppCompatActivity {
             }
         });
 
-        // 계정 로그인/로그아웃 버튼
+        // 계정 로그인/설정 버튼
         Button_setting_account = findViewById(R.id.Button_setting_account);
         Button_setting_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, FirebaseAuth.getInstance()+"");
                 if(FirebaseAuth.getInstance().getCurrentUser() == null){
                     Intent intent = new Intent(Setting.this, SettingAccount.class);
                     startActivity(intent);
                 } else {
-                    FirebaseAuth.getInstance().signOut();
-                    userID = null;
-                    userEmail = null;
-                    Intent intent = new Intent(Setting.this, Setting.class);
+                    Intent intent = new Intent(Setting.this, SettingAccountChangeInfo.class);
                     startActivity(intent);
                 }
             }
@@ -137,7 +133,7 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder dialogBulder = new AlertDialog.Builder(Setting.this);
-                dialogBulder.setMessage("앱과 관련된 모든 데이터를 삭제합니다.\n(※ 주의 : 모든 계정의 데이터가 삭제됨)");
+                dialogBulder.setMessage("앱과 관련된 모든 데이터를 삭제합니다.\n(※ 주의 : 기기에 저장된 모든 계정의\n데이터가 삭제됨)");
                 dialogBulder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -145,7 +141,6 @@ public class Setting extends AppCompatActivity {
                         File[] listFiles = sharedPreferenceFile.listFiles();
                         for (File file : listFiles) {
                             file.delete();
-                            System.out.println("file 삭제 여부 "+file);
                         }
 
 //                        File imageFile = new File("Android/data/"+getPackageName()+"/files/Pictures");
@@ -180,8 +175,8 @@ public class Setting extends AppCompatActivity {
         super.onResume();
 
         // 로그인/로그아웃 상태에 따라서 첫번째 버튼(계정 관련)에 '계정 로그인' 또는 '계정 로그아웃' 으로 출력됨
-        if(FirebaseAuth.getInstance().getCurrentUser() != null){
-            Button_setting_account.setText("계정 로그아웃 : "+userEmail);
+        if(FirebaseAuth.getInstance().getCurrentUser() != null && !userID.equals("Default")){
+            Button_setting_account.setText("계정 설정 : "+userEmail);
             Button_setting_account.setTextSize(18);
         } else {
             Button_setting_account.setText("계정 로그인");

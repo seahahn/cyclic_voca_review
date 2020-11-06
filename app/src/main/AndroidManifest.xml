@@ -19,60 +19,74 @@
             android:roundIcon="@mipmap/cyclic_voca_review_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.seahahn.cyclicvocareview.VocaSearchFilter"
-                  android:theme="@style/VocaTextActionMode">
+        <activity android:name=".SettingAccountChangeEmail">
         </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.SettingLearning">
+        <activity android:name=".SettingAccountChangePassword">
+        </activity>
+        <activity android:name=".SettingAccountChangeInfo">
         </activity>
         <activity
-                android:name="com.seahahn.cyclicvocareview.VocaShowTextActionModePopup"
+                android:name=".SettingAccountRegisterAgreePersonalInfo"
                 android:theme="@style/VocaTextActionMode">
         </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.VocaLearningCycleModify">
-        </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.VocaLearningCycleManage">
-        </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.VocaLearningCycleAdd">
-        </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.SettingAccountFindpassword">
-        </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.SettingAccountRegister">
-        </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.Help">
-        </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.SettingAbout">
-        </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.SettingAccount">
-        </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.VocaShow">
+        <activity
+                android:name=".SettingAccountRegisterAgreeService"
+                android:theme="@style/VocaTextActionMode">
         </activity>
         <activity
-                android:name="com.seahahn.cyclicvocareview.vocagroup.VocagroupAdd"
+                android:name=".VocaSearchFilter"
+                android:theme="@style/VocaTextActionMode">
+        </activity>
+        <activity android:name=".SettingLearning">
+        </activity>
+        <activity
+                android:name=".VocaShowTextActionModePopup"
+                android:theme="@style/VocaTextActionMode">
+        </activity>
+        <activity android:name=".VocaLearningCycleModify">
+        </activity>
+        <activity android:name=".VocaLearningCycleManage">
+        </activity>
+        <activity android:name=".VocaLearningCycleAdd">
+        </activity>
+        <activity android:name=".SettingAccountFindpassword">
+        </activity>
+        <activity android:name=".SettingAccountRegister">
+        </activity>
+        <activity android:name=".Help">
+        </activity>
+        <activity android:name=".SettingAbout">
+        </activity>
+        <activity android:name=".SettingAccount">
+        </activity>
+        <activity android:name=".VocaShow">
+        </activity>
+        <activity
+                android:name=".vocagroup.VocagroupAdd"
                 android:configChanges="orientation|keyboardHidden|screenSize"
                 android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
         </activity>
         <activity
-                android:name="com.seahahn.cyclicvocareview.vocagroup.VocagroupModify"
+                android:name=".vocagroup.VocagroupModify"
                 android:configChanges="orientation|keyboardHidden|screenSize"
                 android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
         </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.vocagroup.VocagroupInfo">
-        </activity>
         <activity
-                android:name="com.seahahn.cyclicvocareview.VocaAdd"
+                android:name=".VocaAdd"
                 android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
-                android:name="com.seahahn.cyclicvocareview.VocaModify"
+                android:name=".VocaModify"
                 android:windowSoftInputMode="adjustResize">
         </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.VocaSearch">
+        <activity android:name=".VocaSearch">
         </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.Tutorial">
+        <activity android:name=".Tutorial">
         </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.Setting">
+        <activity android:name=".Setting">
         </activity>
-        <activity android:name="com.seahahn.cyclicvocareview.MainActivity">
+        <activity android:name=".MainActivity"
+                  android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

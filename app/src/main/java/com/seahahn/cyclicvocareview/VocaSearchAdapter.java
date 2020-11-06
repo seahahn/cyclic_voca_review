@@ -114,15 +114,4 @@ public class VocaSearchAdapter extends RecyclerView.Adapter<VocaSearchAdapter.Vo
              }
          }
      }
-
-//     public Comparator getComparator(final int position) {
-//        Comparator<ArrayList<ArrayList<VocaShowItem>>> comparator = new Comparator<ArrayList<ArrayList<VocaShowItem>>>() {
-//            @Override
-//            public int compare(ArrayList<ArrayList<VocaShowItem>> o1, ArrayList<ArrayList<VocaShowItem>> o2) {
-//                return o1.get(position).get(0).getVocaShowText()
-//                        .compareTo(o1.get(position+1).get(0).getVocaShowText());
-//            }
-//        };
-//        return comparator;
-//    }
 }

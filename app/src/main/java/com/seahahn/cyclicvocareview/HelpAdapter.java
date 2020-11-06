@@ -16,10 +16,11 @@ public class HelpAdapter extends FragmentPagerAdapter {
 
         mData = new ArrayList<>();
         mData.add(new FragmentHelpIntroduce());
+        mData.add(new FragmentHelpLearningcycle());
         mData.add(new FragmentHelpVocagroup());
         mData.add(new FragmentHelpVoca());
-        mData.add(new FragmentHelpLearningcycle());
-        mData.add(new FragmentHelpSyncBackup());
+        mData.add(new FragmentHelpVocaUpload());
+        mData.add(new FragmentHelpBackup());
     }
 
     @NonNull

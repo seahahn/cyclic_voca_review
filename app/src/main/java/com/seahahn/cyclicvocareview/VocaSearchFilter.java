@@ -1,4 +1,8 @@
 package com.seahahn.cyclicvocareview;
+import android.graphics.Rect;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
+import android.content.Context;
 
 import android.content.SharedPreferences;
 import android.text.Editable;
@@ -127,7 +131,6 @@ public class VocaSearchFilter extends AppCompatActivity {
 
         list.clear();
         list.add(getResources().getString(R.string.searchFilterNone));
-//        vocaListTotal.clear();
 
         SharedPreferences sharedPreferences = getSharedPreferences(userID, MODE_PRIVATE);
         Gson gson = new Gson();
@@ -138,19 +141,27 @@ public class VocaSearchFilter extends AppCompatActivity {
         }
 
         for(int i = 0; i < vocagroupList.size(); i++){
-//            String vocagroupName = vocagroupList.get(i).getVocagroupName()+" vocagroupName";
-//            String vocaListKey = vocagroupName+" vocaList";
-//            String vocaListJson = sharedPreferences.getString(vocaListKey, null);
-//            Type vocaListType = new TypeToken<ArrayList<ArrayList<VocaShowItem>>>(){}.getType();
-//            if(gson.fromJson(vocaListJson, vocaListType) != null){
-//                vocaList = gson.fromJson(vocaListJson, vocaListType);
-//            }
-
             list.add(vocagroupList.get(i).getVocagroupName());
-//            vocaListTotal.addAll(vocaList);
         }
         list.addAll(vocaCurrentCycleList);
+    }
 
-//        list.addAll();
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 }

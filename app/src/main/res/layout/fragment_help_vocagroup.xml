@@ -6,10 +6,26 @@
              tools:context=".FragmentHelpVocagroup">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout
+            android:id="@+id/linear_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="30sp"
-            android:text="단어장 추가/수정 및 사용 방법"/>
+            android:orientation="vertical"
+            android:layout_marginHorizontal="12dp">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="35sp"
+                android:gravity="center_horizontal"
+                android:text="단어장 사용 방법"
+                android:layout_marginVertical="24dp"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/helpVocagroup"
+                android:textSize="24sp"/>
+    </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

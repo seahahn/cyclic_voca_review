@@ -71,7 +71,6 @@ public class VocaLearningCycleManage extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this, "VLC Manage onResume",Toast.LENGTH_LONG).show();
         vocaLearningCycleManageAdapter.notifyDataSetChanged();
 
         // 단어 학습 주기 목록을 담은 데이터 불러오기
@@ -97,7 +96,6 @@ public class VocaLearningCycleManage extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Toast.makeText(this, "VLCManage onPause",Toast.LENGTH_LONG).show();
 
 //        SharedPreferences sharedPreferences = getSharedPreferences("VocaLearningCycle", MODE_PRIVATE);
         SharedPreferences sharedPreferences = getSharedPreferences(userID, MODE_PRIVATE);

@@ -34,7 +34,6 @@
                 android:imeOptions="actionDone"
                 android:hint="@string/vocaLearningCycleAreaExample"
                 android:ems="10"
-                android:cursorVisible="false"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/EditText_vocaLearningCycle_vocaLearningCycleAreaInput"/>
     </LinearLayout>

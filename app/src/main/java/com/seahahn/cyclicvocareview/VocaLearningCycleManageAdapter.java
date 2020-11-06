@@ -37,7 +37,6 @@ public class VocaLearningCycleManageAdapter extends RecyclerView.Adapter<VocaLea
         }
 
         public void onBind(VocaLearningCycle vocaLearningCycle){
-//            Log.d("VLCManageAdapter onBind 확인", vocaLearningCycle.getVocaLearningCycleName());
             vocaLearningCycle_name.setText(vocaLearningCycle.getVocaLearningCycleName());
         }
     }

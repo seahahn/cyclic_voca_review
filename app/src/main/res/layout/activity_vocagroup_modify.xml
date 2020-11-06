@@ -95,17 +95,18 @@
                         app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="50dp"
                         app:layout_constraintStart_toStartOf="parent"/>
                 <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textNoSuggestions"
                         android:text=""
                         android:ems="10"
-                        android:cursorVisible="false"
+                        
                         android:imeOptions="actionDone"
                         android:id="@+id/EditText_vocagroupModify_vocagroupNameInput"
                         app:layout_constraintTop_toBottomOf="@+id/TextView_vocagroupModify_vocagroupName"
                         android:layout_marginTop="8dp"
-                        app:layout_constraintStart_toStartOf="@+id/TextView_vocagroupModify_vocagroupName"/>
+                        app:layout_constraintStart_toStartOf="@+id/TextView_vocagroupModify_vocagroupName"
+                        app:layout_constraintEnd_toEndOf="parent"/>
 
                 <TextView
                         android:text="@string/vocagroupcycle"
@@ -140,7 +141,7 @@
                         android:inputType="textNoSuggestions"
                         android:text=""
                         android:ems="10"
-                        android:cursorVisible="false"
+                        
                         android:imeOptions="actionDone"
                         android:id="@+id/EditText_vocagroupModify_vocagroupArea1Input"
                         app:layout_constraintTop_toBottomOf="@+id/TextView_vocagroupModify_vocagroupArea1"
@@ -179,7 +180,7 @@
                         android:inputType="textNoSuggestions"
                         android:text=""
                         android:ems="10"
-                        android:cursorVisible="false"
+                        
                         android:imeOptions="actionDone"
                         android:id="@+id/EditText_vocagroupModify_vocagroupArea2Input"
                         app:layout_constraintTop_toBottomOf="@+id/TextView_vocagroupModify_vocagroupArea2"

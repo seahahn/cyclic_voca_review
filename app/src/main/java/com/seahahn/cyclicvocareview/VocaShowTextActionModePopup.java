@@ -175,7 +175,6 @@ public class VocaShowTextActionModePopup extends AppCompatActivity {
     // 사용자가 입력한 텍스트의 언어를 감지한 초기값을 언어 선택 스피너에 세팅해주기 위한 메소드
     // 스피너의 아이템 중에서 감지한 언어와 동일한 문자열을 찾아서 그 문자열의 포지션을 리턴함
     private int getIndex(String[] languagesValue){
-        System.out.println("getIndex langElement : "+langElement);
         for(int i = 0; i < languagesValue.length; i++){
             if(languagesValue[i].equals(langElement)){
                 return i;
@@ -380,9 +379,11 @@ public class VocaShowTextActionModePopup extends AppCompatActivity {
                         // source 가 감지한 언어(input), target 이 사용자가 보길 원하는 언어(output)
                         if(targetLang == null){
                             targetLang = "ko";
+                            if(langElement.equals("ko")){
+                                targetLang = "en";
+                            }
                         }
                         String postParams = "source="+langElement+"&target="+targetLang+"&text=" + text;
-                        System.out.println(postParams);
                         con.setDoOutput(true);
                         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
                         wr.writeBytes(postParams);

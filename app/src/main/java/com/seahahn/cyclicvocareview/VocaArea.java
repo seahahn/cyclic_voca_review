@@ -70,44 +70,4 @@ public class VocaArea implements Serializable {
         sb.append('}');
         return sb.toString();
     }
-
-    //    public VocaArea(String vocaAreaName, String editText_vocaAdd_vocaAreaInput, boolean switch_vocaAdd_areaSwitch) {
-//        this.vocaAreaName = vocaAreaName;
-//        EditText_vocaAdd_vocaAreaInput = editText_vocaAdd_vocaAreaInput;
-//        Switch_vocaAdd_areaSwitch = switch_vocaAdd_areaSwitch;
-//    }
-//
-//    public String getVocaAreaName() {
-//        return vocaAreaName;
-//    }
-//
-//    public void setVocaAreaName(String vocaAreaName) {
-//        this.vocaAreaName = vocaAreaName;
-//    }
-//
-//    public String getEditText_vocaAdd_vocaAreaInput() {
-//        return EditText_vocaAdd_vocaAreaInput;
-//    }
-//
-//    public void setEditText_vocaAdd_vocaAreaInput(String editText_vocaAdd_vocaAreaInput) {
-//        EditText_vocaAdd_vocaAreaInput = editText_vocaAdd_vocaAreaInput;
-//    }
-//
-//    public boolean isSwitch_vocaAdd_areaSwitch() {
-//        return Switch_vocaAdd_areaSwitch;
-//    }
-//
-//    public void setSwitch_vocaAdd_areaSwitch(boolean switch_vocaAdd_areaSwitch) {
-//        Switch_vocaAdd_areaSwitch = switch_vocaAdd_areaSwitch;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        final StringBuffer sb = new StringBuffer("VocaArea{");
-//        sb.append("vocaAreaName='").append(vocaAreaName).append('\'');
-//        sb.append(", EditText_vocaAdd_vocaAreaInput='").append(EditText_vocaAdd_vocaAreaInput).append('\'');
-//        sb.append(", Switch_vocaAdd_areaSwitch=").append(Switch_vocaAdd_areaSwitch);
-//        sb.append('}');
-//        return sb.toString();
-//    }
 }

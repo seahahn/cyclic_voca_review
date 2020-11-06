@@ -1,5 +1,9 @@
 package com.seahahn.cyclicvocareview;
 import android.util.Log;
+import android.graphics.Rect;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
+import android.content.Context;
 import android.widget.Toast;
 
 import android.content.Intent;
@@ -117,7 +121,6 @@ public class VocaLearningCycleAdd extends AppCompatActivity {
                             EditText_vocaLearningCycleAdd_vocaLearningCycleArea1Input.getText().toString(),
                             EditText_vocaLearningCycleAdd_vocaLearningCycleArea2Input.getText().toString(),
                             vocaLearningCycleAreaAdapter.getData());
-                    Log.d("단어 학습 주기 추가", vocaLearningCycle+"");
 
                     String vocagroupVLC = EditText_vocaLearningCycleAdd_vocaLearningCycleNameInput.getText().toString() + " vocaLearningCycle";
 //                    SharedPreferences sharedPreferences = getSharedPreferences("VocaLearningCycle", MODE_PRIVATE);
@@ -136,5 +139,24 @@ public class VocaLearningCycleAdd extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 }

@@ -116,7 +116,6 @@ public class VocaAreaAdapter extends RecyclerView.Adapter<VocaAreaAdapter.VocaAr
                                         editor.putInt("photoPosition", getAdapterPosition());
                                         editor.commit();
 
-                                        Log.d("mCurrentPhotoPathInAdapter", mCurrentPhotoPathInAdapter);
                                         ((Activity)context).startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE_ITEM);
                                     }
                                 }
@@ -246,15 +245,6 @@ public class VocaAreaAdapter extends RecyclerView.Adapter<VocaAreaAdapter.VocaAr
         notifyItemChanged(position);
     }
 
-    public void setDrawable(int position, Drawable drawable){
-        Log.d("추가 영역 사진 불러오기", "setDrawable 호출됨");
-//        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-//        Drawable drawableForSetting = new BitmapDrawable(context.getResources(), bitmap);
-
-//        mData.get(position).setImageView_vocaAdd_imageView(drawable);
-        notifyItemChanged(position);
-    }
-
     public void setImageTag(int position, String tag){
         mData.get(position).setImageView_vocaAdd_photoPath(tag);
     }
@@ -317,20 +307,4 @@ public class VocaAreaAdapter extends RecyclerView.Adapter<VocaAreaAdapter.VocaAr
             }
         }
     }
-
-//    private class MyImageSetter implements ImageSetter{
-//        private int position;
-//
-//        public void updatePosition(int position) {
-//            this.position = position;
-//        }
-//
-//        public void ImageSetter(Bitmap bitmap){
-//            mData.get(position).setImageView_vocaAdd_imageView(bitmap);
-//        }
-//    }
-//
-//    public interface ImageSetter {
-//        public void ImageSetter(Bitmap bitmap);
-//    }
 }

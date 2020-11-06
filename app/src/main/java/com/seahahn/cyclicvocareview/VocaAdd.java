@@ -1,4 +1,8 @@
 package com.seahahn.cyclicvocareview;
+import android.content.Context;
+import android.graphics.*;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import android.Manifest;
@@ -7,10 +11,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.ImageDecoder;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -98,8 +98,6 @@ public class VocaAdd extends AppCompatActivity {
         String vocagroupJson = sharedPreferencesM.getString(vocagroupName, null);
         final Vocagroup vocagroup = gsonM.fromJson(vocagroupJson, Vocagroup.class);
 
-        Log.d(TAG, "vocagroupName : "+vocagroupName);
-
         permissionCheck();
 
         // 화면 좌측 상단 좌향 화살표 이미지버튼 - 뒤로 가기(바로 이전 액티비티로 돌아감)
@@ -163,74 +161,6 @@ public class VocaAdd extends AppCompatActivity {
             }
         });
 
-        // 액티비티 스크롤뷰 내의 리니어 레이아웃 초기화
-        // 카메라, 갤러리에서 사진 불러온 후 레이아웃 하단에 추가하기 위해서 초기화함
-        // dispatchTakePictureIntent(카메라 호출 후 사진 가져오는 메소드)와 ACTION_GET_CONTENT 인텐트 결과로 받은 이미지는 레이아웃 최하단에 위치하게 됨
-//        LinearLayout_vocaAdd = findViewById(R.id.LinearLayout_vocaAdd);
-
-        // 상단 두번째 툴바 가운데 카메라 모양 이미지버튼 - 카메라 불러오기 기능. 사진 찍으면 찍은 이미지 가져와서 추가함
-//        ImageButton_vocaAdd_camera = findViewById(R.id.ImageButton_vocaAdd_camera);
-//        ImageButton_vocaAdd_camera.setClickable(true);
-//        ImageButton_vocaAdd_camera.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dispatchTakePictureIntent();
-//            }
-//        });
-
-        // 상단 두번째 툴바 그림 모양 이미지버튼 - 갤러리에서 이미지 불러오기 기능. 가져온 이미지는 레이아웃 최하단에 추가됨
-//        ImageButton_vocaAdd_gallery = findViewById(R.id.ImageButton_vocaAdd_gallery);
-//        ImageButton_vocaAdd_gallery.setClickable(true);
-//        ImageButton_vocaAdd_gallery.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setType("image/*");
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                startActivityForResult(intent, REQUEST_PICTURE);
-//            }
-//        });
-
-        // 상단 두번째 툴바 마이크 모양 이미지버튼 - 음성녹음 버튼 (미완성)
-
-//        ImageButton_vocaAdd_voiceRecord = findViewById(R.id.ImageButton_vocaAdd_voiceRecord);
-//        ImageButton_vocaAdd_voiceRecord.setClickable(true);
-//        ImageButton_vocaAdd_voiceRecord.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String recordOnOff;
-//                if(recorder == null){
-//                    recordOnOff = getString(R.string.recordStart);
-//                }else{
-//                    recordOnOff = getString(R.string.recordEnd);
-//                }
-//                final AlertDialog.Builder builder = new AlertDialog.Builder(VocaAdd.this);
-//                builder.setTitle("음성 녹음").setMessage("녹음하시려면 '시작'을 눌러주세요.");
-//                builder.setPositiveButton(recordOnOff, null);
-//                builder.setNegativeButton("종료", null);
-//                final AlertDialog alertDialog = builder.create();
-//                alertDialog.show();
-//
-//                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        if(recorder == null){
-//                            recordStart();
-//                        }else{
-//                            recordStop();
-//                        }
-//                    }
-//                });
-//                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        alertDialog.dismiss();
-//                    }
-//                });
-//
-//            }
-//        });
-
         // 두 번째 영역 밑의 추가 영역 출력하는 리사이클러뷰와 어댑터, 레이아웃 매니저 초기화
         ListView_vocaAdd_listview = findViewById(R.id.ListView_vocaAdd_listview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -263,7 +193,6 @@ public class VocaAdd extends AppCompatActivity {
             vocaAreaAdapter.addItem(new VocaArea(vocagroup.getVocagroupAreaList().get(i).getEditText_vocagroupAdd_vocagroupAreaInput(), "",
                     vocagroup.getVocagroupAreaList().get(i).isSwitch_vocagroupAdd_areaSwitch(), null, null));
             vocaAreaAdapter.notifyItemInserted(i);
-            Log.d("VocaAdd addItem", i+" 스위치 값 제대로 들어가는지 확인-> "+vocagroup.getVocagroupAreaList().get(i).isSwitch_vocagroupAdd_areaSwitch());
         }
 
         // 이미지 추가 버튼에 카메라, 갤러리 호출하는 기능 부여
@@ -407,9 +336,7 @@ public class VocaAdd extends AppCompatActivity {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if(checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
                 && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-                Log.d("권한 설정", "완료");
             } else {
-                Log.d("권한 설정", "요청");
                 ActivityCompat.requestPermissions(VocaAdd.this,
                         new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
@@ -438,7 +365,6 @@ public class VocaAdd extends AppCompatActivity {
 
                       String imagePath = mCurrentPhotoPath;
                       ImageView_vocaAdd_imageView1.setTag(imagePath);
-                      Log.d("area1 imagePath", imagePath.toString());
                       ImageView_vocaAdd_imageView1.setImageBitmap(bitmap);
                   }
                 }catch(IOException e){
@@ -451,7 +377,6 @@ public class VocaAdd extends AppCompatActivity {
 
                       String imagePath = mCurrentPhotoPath;
                       ImageView_vocaAdd_imageView1.setTag(imagePath);
-                      Log.d("area1 imagePath", imagePath.toString());
                       ImageView_vocaAdd_imageView1.setImageBitmap(bitmap);
                   }
                 }catch(IOException e){
@@ -470,11 +395,8 @@ public class VocaAdd extends AppCompatActivity {
                 img.compress(Bitmap.CompressFormat.PNG, 70, out);
                 out.close();
 
-                Drawable drawable = new BitmapDrawable(getResources(), img);
-
                 String imagePath = mCurrentPhotoPath;
                 ImageView_vocaAdd_imageView1.setTag(imagePath);
-                Log.d("area1 imagePath", imagePath.toString());
                 ImageView_vocaAdd_imageView1.setImageBitmap(img);
             }catch(Exception e){
             }
@@ -484,10 +406,6 @@ public class VocaAdd extends AppCompatActivity {
 
         // 영역 2 사진 불러오는 부분
         if(requestCode == REQUEST_IMAGE_CAPTURE2 && resultCode == RESULT_OK){
-//            Bundle extras = data.getExtras();
-//            Bitmap imageBitmap = (Bitmap) extras.get("data");
-//
-//            ImageView_vocaAdd_imageView2.setImageBitmap(imageBitmap);
             File file = new File(mCurrentPhotoPath);
             Bitmap bitmap;
             if(Build.VERSION.SDK_INT >= 29){
@@ -495,11 +413,8 @@ public class VocaAdd extends AppCompatActivity {
                 try{
                     bitmap = ImageDecoder.decodeBitmap(source);
                     if(bitmap != null) {
-                        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-
                         String imagePath = mCurrentPhotoPath;
                         ImageView_vocaAdd_imageView2.setTag(imagePath);
-                        Log.d("area2 imagePath", imagePath);
                         ImageView_vocaAdd_imageView2.setImageBitmap(bitmap);
                     }
                 }catch(IOException e){
@@ -512,7 +427,6 @@ public class VocaAdd extends AppCompatActivity {
 
                         String imagePath = mCurrentPhotoPath;
                         ImageView_vocaAdd_imageView2.setTag(imagePath);
-                        Log.d("area2 imagePath", imagePath);
                         ImageView_vocaAdd_imageView2.setImageBitmap(bitmap);
                     }
                 }catch(IOException e){
@@ -522,7 +436,6 @@ public class VocaAdd extends AppCompatActivity {
             Toast.makeText(this, "카메라 작동 안됨2", Toast.LENGTH_SHORT).show();
         }
         if(requestCode == REQUEST_PICTURE2 && resultCode == RESULT_OK){
-            File file = new File(mCurrentPhotoPath);
             try{
                 InputStream in = getContentResolver().openInputStream(data.getData());
                 Bitmap img = BitmapFactory.decodeStream(in);
@@ -532,11 +445,8 @@ public class VocaAdd extends AppCompatActivity {
                 img.compress(Bitmap.CompressFormat.PNG, 70, out);
                 out.close();
 
-                Drawable drawable = new BitmapDrawable(getResources(), img);
-
                 String imagePath = mCurrentPhotoPath;
                 ImageView_vocaAdd_imageView2.setTag(imagePath);
-                Log.d("area2 imagePath", imagePath);
                 ImageView_vocaAdd_imageView2.setImageBitmap(img);
             }catch(Exception e){
             }
@@ -551,10 +461,6 @@ public class VocaAdd extends AppCompatActivity {
             mCurrentPhotoPath = sharedPreferences.getString("mCurrentPhotoPathInAdapter", "");
             int position = sharedPreferences.getInt("photoPosition", 55);
 
-//            Bitmap imageBitmap = (Bitmap) extras.get("data");
-//
-//            vocaAreaAdapter.setBitmap(position, imageBitmap);
-
             File file = new File(mCurrentPhotoPath);
             Bitmap bitmap;
             if(Build.VERSION.SDK_INT >= 29){
@@ -562,12 +468,8 @@ public class VocaAdd extends AppCompatActivity {
                 try{
                     bitmap = ImageDecoder.decodeBitmap(source);
                     if(bitmap != null) {
-                        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-                        Log.d("추가 영역 사진 불러오기", "카메라 "+drawable);
-
                         String imagePath = mCurrentPhotoPath;
                         vocaAreaAdapter.setImageTag(position, imagePath);
-                        Log.d("areaItem imagePath", imagePath);
                         vocaAreaAdapter.setBitmap(position, bitmap);
                     }
                 }catch(IOException e){
@@ -576,12 +478,8 @@ public class VocaAdd extends AppCompatActivity {
                 try{
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(file));
                     if(bitmap != null){
-                        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-                        Log.d("추가 영역 사진 불러오기", "카메라 "+drawable);
-
                         String imagePath = mCurrentPhotoPath;
                         vocaAreaAdapter.setImageTag(position, imagePath);
-                        Log.d("areaItem imagePath", imagePath);
                         vocaAreaAdapter.setBitmap(position, bitmap);
                     }
                 }catch(IOException e){
@@ -591,7 +489,6 @@ public class VocaAdd extends AppCompatActivity {
             Toast.makeText(this, "카메라 작동 안됨3", Toast.LENGTH_SHORT).show();
         }
         if(requestCode == REQUEST_PICTURE_ITEM && resultCode == RESULT_OK){
-            File file = new File(mCurrentPhotoPath);
             SharedPreferences sharedPreferences = getSharedPreferences("photo", MODE_PRIVATE);
             int position = sharedPreferences.getInt("photoPosition", 55);
 
@@ -604,12 +501,8 @@ public class VocaAdd extends AppCompatActivity {
                 img.compress(Bitmap.CompressFormat.PNG, 70, out);
                 out.close();
 
-                Drawable drawable = new BitmapDrawable(getResources(), img);
-//                Log.d("추가 영역 사진 불러오기", "갤러리 "+drawable);
-
                 String imagePath = mCurrentPhotoPath;
                 vocaAreaAdapter.setImageTag(position, imagePath);
-                Log.d("areaItem imagePath", imagePath);
                 vocaAreaAdapter.setBitmap(position, img);
             }catch(Exception e){
             }
@@ -633,8 +526,6 @@ public class VocaAdd extends AppCompatActivity {
 
     private void dispatchTakePictureIntent(int requestCode){
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        System.out.println("카메라 인텐트 작동 여부 확인");
-//        Log.d(TAG, ""+takePictureIntent.resolveActivity(getPackageManager()));
 //        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             File photoFile = null;
 
@@ -643,7 +534,7 @@ public class VocaAdd extends AppCompatActivity {
             }catch(IOException e){
             }
             if (photoFile != null){
-                Uri photoURI = FileProvider.getUriForFile(this, "com.seahahn.vocacyclicreview.fileprovider", photoFile);
+                Uri photoURI = FileProvider.getUriForFile(this, "com.seahahn.cyclicvocareview.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, requestCode);
             }
@@ -654,37 +545,8 @@ public class VocaAdd extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        System.out.println("갤러리 소환");
-
-//        if (intent.resolveActivity(getPackageManager()) != null) {
-//            File photoFile = null;
-//
-//            try{
-//                photoFile = createImageFile();
-//            }catch(IOException e){
-//            }
-//            if (photoFile != null){
-//                Uri photoURI = FileProvider.getUriForFile(this, "com.example.vocacyclicreview.fileprovider", photoFile);
-//                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-//                startActivityForResult(intent, requestCode);
-//            }
-//        }
 
         startActivityForResult(intent, requestCode);
-    }
-
-    private String getRealPathFromURI(Uri contentURI) {
-        String result;
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
-        if (cursor == null) { // Source is Dropbox or other similar local file path
-            result = contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
-            cursor.close();
-        }
-        return result;
     }
 
     @Override
@@ -699,6 +561,25 @@ public class VocaAdd extends AppCompatActivity {
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 
 }

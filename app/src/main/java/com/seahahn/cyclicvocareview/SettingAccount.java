@@ -1,5 +1,9 @@
 package com.seahahn.cyclicvocareview;
+import android.content.Context;
+import android.graphics.Rect;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import android.content.Intent;
@@ -101,7 +105,6 @@ public class SettingAccount extends AppCompatActivity implements GoogleApiClient
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "signInWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     if(user.isEmailVerified()){
                                         Toast.makeText(getApplicationContext(), "로그인 성공",Toast.LENGTH_SHORT).show();
@@ -119,7 +122,7 @@ public class SettingAccount extends AppCompatActivity implements GoogleApiClient
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
 //                                    Toast.makeText(SettingAccount.this, getString(R.string.loginFail), Toast.LENGTH_SHORT).show();
-                                    Toast.makeText(SettingAccount.this, "Authentication failed.",
+                                    Toast.makeText(SettingAccount.this, "올바르지 않은 이메일 또는 비밀번호입니다.",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -154,10 +157,7 @@ public class SettingAccount extends AppCompatActivity implements GoogleApiClient
 
         // 구글 로그인 결과 받는 곳
         if(requestCode == REQ_SIGN_GOOGLE){
-            Log.d(TAG, "requestCode 작동 여부");
-            Log.d(TAG, "data 작동 여부 : "+data);
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            Log.d(TAG, "isSuccess 작동 여부 : "+result.isSuccess());
             if(result.isSuccess()){
                 GoogleSignInAccount account = result.getSignInAccount(); // account 안에 구글 닉네임, 프로필 사진 URL, 이메일 등 데이터 다 들어있음
                 resultLogin(account); // 로그인 결과값 출력 수행하는 메소드
@@ -167,7 +167,6 @@ public class SettingAccount extends AppCompatActivity implements GoogleApiClient
     }
 
     private void resultLogin(final GoogleSignInAccount account) {
-        Log.d(TAG, "resultLogin 작동 여부");
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -177,17 +176,6 @@ public class SettingAccount extends AppCompatActivity implements GoogleApiClient
                             // 로그인 성공한 경우
                             Toast.makeText(getApplicationContext(), "구글 로그인 성공",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), Setting.class);
-//                            intent.putExtra("email", account.getEmail());
-//                            intent.putExtra("photoUrl", String.valueOf(account.getPhotoUrl()));
-//                            Log.d(TAG, "account.getEmail() : "+account.getEmail());
-//                            Log.d(TAG, "account.getFamilyName() : "+account.getFamilyName());
-//                            Log.d(TAG, "account.getGivenName() : "+account.getGivenName());
-//                            Log.d(TAG, "account.getId() : "+account.getId());
-//                            Log.d(TAG, "account.getIdToken() : "+account.getIdToken());
-//                            Log.d(TAG, "account.getServerAuthCode() : "+account.getServerAuthCode());
-//                            Log.d(TAG, "account.getAccount(): "+account.getAccount());
-//                            Log.d(TAG, "account.getGrantedScopes() : "+account.getGrantedScopes());
-//                            Log.d(TAG, "account.getRequestedScopes() : "+account.getRequestedScopes());
 
                             if(FirebaseAuth.getInstance() != null){
                                 userID = FirebaseAuth.getInstance().getUid();
@@ -206,5 +194,24 @@ public class SettingAccount extends AppCompatActivity implements GoogleApiClient
     @Override
     public void onConnectionFailed(@NonNull @NotNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 }

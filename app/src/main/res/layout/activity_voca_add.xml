@@ -201,7 +201,7 @@ android:id="@+id/ConstraintLayout_vocaAdd">
                         android:text=""
                         android:ems="10"
                         android:imeOptions="actionDone"
-                        android:cursorVisible="false"
+                        
                         android:id="@+id/EditText_vocaAdd_vocagroupArea1Input"
                         app:layout_constraintTop_toBottomOf="@+id/TextView_vocaAdd_vocagroupArea1"
                         app:layout_constraintStart_toStartOf="@+id/TextView_vocaAdd_vocagroup"
@@ -255,7 +255,7 @@ android:id="@+id/ConstraintLayout_vocaAdd">
                         android:text=""
                         android:ems="10"
                         android:imeOptions="actionDone"
-                        android:cursorVisible="false"
+                        
                         android:id="@+id/EditText_vocaAdd_vocagroupArea2Input"
                         app:layout_constraintTop_toBottomOf="@+id/TextView_vocaAdd_vocagroupArea2"
                         app:layout_constraintStart_toStartOf="@+id/TextView_vocaAdd_vocagroup"

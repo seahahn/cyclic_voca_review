@@ -100,7 +100,7 @@
                         android:imeOptions="actionDone"
                         android:hint="@string/vocaLearningCycleNameExample"
                         android:ems="10"
-                        android:cursorVisible="false"
+                        
                         android:id="@+id/EditText_vocaLearningCycleAdd_vocaLearningCycleNameInput"
                         app:layout_constraintTop_toBottomOf="@+id/TextView_vocaLearningCycleAdd_vocaLearningCycleName"
                         android:layout_marginTop="8dp"
@@ -122,7 +122,7 @@
                         android:imeOptions="actionDone"
                         android:hint="@string/vocaLearningCycleAreaExample"
                         android:ems="10"
-                        android:cursorVisible="false"
+                        
                         android:layout_gravity="center_vertical"
                         android:id="@+id/EditText_vocaLearningCycleAdd_vocaLearningCycleArea1Input"
                         app:layout_constraintTop_toBottomOf="@+id/TextView_vocaLearningCycleAdd_vocaLearningCycleArea1"
@@ -143,7 +143,7 @@
                         android:imeOptions="actionDone"
                         android:hint="@string/vocaLearningCycleAreaExample"
                         android:ems="10"
-                        android:cursorVisible="false"
+                        
                         android:layout_gravity="center_vertical"
                         android:id="@+id/EditText_vocaLearningCycleAdd_vocaLearningCycleArea2Input"
                         app:layout_constraintTop_toBottomOf="@+id/TextView_vocaLearningCycleAdd_vocaLearningCycleArea2"
