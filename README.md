@@ -18,9 +18,9 @@
 
 ## :three: 사용 기술
 - Android (Java 8)
-- Gson 2.8.6
-- Glide 4.11.0
-- Gradle 6.6.1
+  - Gson 2.8.6
+  - Glide 4.11.0
+  - Gradle 6.6.1
 
 
 <br/>
@@ -29,20 +29,20 @@
 
 <!-- ### 1. 회원가입 / 로그인 (이메일,비밀번호 방식 / 구글 로그인 방식) / 비밀번호 찾기, 재설정
   
-[![Cyclic Voca Review - 회원가입, 로그인, 비밀번호](https://user-images.githubusercontent.com/73585246/161056457-de5d7de8-817e-4778-a714-66f642d9d6d5.PNG)](https://youtu.be/SNCOukGS1MU) -->
+[![Cyclic Voca Review - 회원가입, 로그인, 비밀번호](https://user-images.githubusercontent.com/73585246/161056457-de5d7de8-817e-4778-a714-66f642d9d6d5.PNG)](https://youtu.be/LizgHUoSe08) -->
   
 
   
 <!--   
 ### 2. 테마 설정, 개발자에게 메일 보내기
   
-[![Cyclic Voca Review - 테마 설정, 개발자에게 메일 보내기](https://user-images.githubusercontent.com/73585246/161056533-41e8eb10-748e-4ae3-b1b7-a1e0e77a0b40.PNG)](https://youtu.be/otBcBsYEPE8) -->
+[![Cyclic Voca Review - 테마 설정, 개발자에게 메일 보내기](https://user-images.githubusercontent.com/73585246/161056533-41e8eb10-748e-4ae3-b1b7-a1e0e77a0b40.PNG)](https://youtu.be/uJhDJC1qfno) -->
   
   
   
 ### 1. 단어 학습 주기 관리 / 단어장 관리 / 단어 관리 / 단어 학습
 
-- 시연 영상 링크 : https://youtu.be/K0azs83JVrY 
+- 시연 영상 링크 : https://youtu.be/1UcKppNa5hs
 
 <details>
   <summary>1) 단어 학습 주기 관리</summary><br/>
@@ -73,7 +73,7 @@
 
 ### 2. 네이버 파파고 API 활용한 단어 언어 감지 및 번역 (한국어 <-> 외국어 / 외국어 <-> 외국어)
 
-- 시연 영상 링크 : https://youtu.be/O8ysJ7ZhKNo
+- 시연 영상 링크 : https://youtu.be/wzbhWfOWH94
 
 <details>
   <summary>1) 단어 언어 감지 및 번역</summary><br/>
@@ -86,7 +86,7 @@
 
 ### 3. 엑셀 파일 이용한 단어 대량 업로드, 백업 파일 내보내기 및 불러오기
 
-- 시연 영상 링크 : https://youtu.be/DZ5repRYdrY
+- 시연 영상 링크 : https://youtu.be/9mJilDmRVKs
   
 <details>
   <summary>1) 엑셀 파일(.xls) 이용한 단어 대량 업로드 기능</summary><br/>
